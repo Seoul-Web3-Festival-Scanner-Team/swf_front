@@ -1,33 +1,18 @@
 import { css } from "@emotion/react";
 import { COLORS } from "./globalColors";
+import { setVw } from "./globalScreen";
 
-class GlobalFonts {
-    l1620 = ({ color = COLORS.black }) => {
-        return css`
-            font-size: 16px;
-            font-weight: lighter;
-            line-height: 20px;
-            color: ${color};
-        `;
-    };
+// 500  - Thin
+// 600  - Regular
+// 700  - Bold
 
-    r1620 = ({ color = COLORS.black }) => {
-        return css`
-            font-size: 16px;
-            font-weight: normal;
-            line-height: 20px;
-            color: ${color};
-        `;
-    }
-
-    b1620 = ({ color = COLORS.black }) => {
-        return css`
-            font-size: 16px;
-            font-weight: bold;
-            line-height: 20px;
-            color: ${color};
-        `;
-    };
+function GlobalFont({ color, size, weight, height }) {
+    return css`
+        color: ${color ? color : COLORS.black};
+        ${size ? setVw("font-size", size) : ""};
+        font-weight: ${weight ? weight : "normal"};
+        ${height ? setVw("line-height", height) : ""};
+    `;
 }
 
-export default GlobalFonts;
+export default GlobalFont;
