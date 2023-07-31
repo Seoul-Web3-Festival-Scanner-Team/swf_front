@@ -9,9 +9,8 @@ import ElasticBlock from "components/utils/ElasticBlock";
 import SquareBtn from "components/global/btns/SquareBtn";
 import Row from "components/utils/Row";
 
-function Step6() {
+function Step6({ selectIndex, setSelectIndex, lastAction }) {
     const { position, maxPosition, forwardHandler } = useTabLayout();
-    const [selectIndex, setSelectIndex] = useState(-1);
 
     return (
         <AllFullColumn cross={LayerAlign.center}>
@@ -21,33 +20,28 @@ function Step6() {
             </StepText>
 
             <ElasticBlock h={9} />
-            <QuestionText>둘 중 하나를 골라주세요</QuestionText>
+            <QuestionText>본인인증을 진행해주세요</QuestionText>
 
-            <ElasticBlock h={55} />
+            <ElasticBlock h={83} />
             <Row fullWidth={true}>
                 <SquareBtn
                     selected={selectIndex === 0}
                     onClick={() => {
                         setSelectIndex(0);
+                        lastAction();
                     }}>
-                    집주인이에요
+                    토스
                 </SquareBtn>
                 <ElasticBlock w={16} />
                 <SquareBtn
                     selected={selectIndex === 1}
                     onClick={() => {
                         setSelectIndex(1);
+                        lastAction();
                     }}>
-                    세입자에요
+                    카카오
                 </SquareBtn>
             </Row>
-
-            <ElasticBlock h={184} />
-            <ElasticSizedBox w={320} h={48}>
-                <SimpleBtn onClick={forwardHandler} active={selectIndex !== -1}>
-                    다음
-                </SimpleBtn>
-            </ElasticSizedBox>
         </AllFullColumn>
     );
 }

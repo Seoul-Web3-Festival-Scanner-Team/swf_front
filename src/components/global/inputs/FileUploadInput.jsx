@@ -2,6 +2,8 @@ import styled from "@emotion/styled";
 import React, { useState, useRef } from "react";
 import { COLORS } from "styles/global/globalColors";
 import { setVw } from "styles/global/globalScreen";
+import { ReactComponent as InactiveCircle } from "assets/icons/ic-inactive_circle_plus.svg";
+import { ReactComponent as ActiveCircle } from "assets/icons/ic-active_circle_plus.svg";
 
 const UploadButton = styled.button`
     cursor: pointer;
@@ -13,10 +15,10 @@ const UploadButton = styled.button`
 
     background-color: ${COLORS.simple_gray_op_3};
 
-    ${setVw('width', 316)}
-    ${setVw('height', 210)}
+    ${setVw("width", 316)}
+    ${setVw("height", 210)}
 
-    ${setVw('border-radius', 10)}
+    ${setVw("border-radius", 10)}
 `;
 
 const FileName = styled.span`
@@ -30,8 +32,21 @@ const FileName = styled.span`
     width: 90px;
 `;
 
-function FileUploadInput() {
-    const [file, setFile] = useState(null);
+const InactiveCircleIcon = styled(InactiveCircle)`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`;
+
+const ActiveCircleIcon = styled(ActiveCircle)`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`;
+
+function FileUploadInput({file, setFile}) {
     const fileInputRef = useRef(null);
 
     const handleFileChange = (event) => {
@@ -52,11 +67,8 @@ function FileUploadInput() {
                 style={{ display: "none" }}
                 onChange={handleFileChange}
             />
-            {file ? (
-                <FileName>{file}</FileName>
-            ) : (
-                <div style={{ fontSize: "30px" }}>+</div>
-            )}
+            {file ? <InactiveCircleIcon /> : <ActiveCircleIcon />}
+            {file && <FileName>{file}</FileName>}
         </UploadButton>
     );
 }

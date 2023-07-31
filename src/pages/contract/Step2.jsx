@@ -9,9 +9,8 @@ import ElasticBlock from "components/utils/ElasticBlock";
 import SquareBtn from "components/global/btns/SquareBtn";
 import Row from "components/utils/Row";
 
-function Step2() {
+function Step2({ selectIndex, setSelectIndex }) {
     const { position, maxPosition, forwardHandler } = useTabLayout();
-    const [selectIndex, setSelectIndex] = useState(-1);
 
     return (
         <AllFullColumn cross={LayerAlign.center}>

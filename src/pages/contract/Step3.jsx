@@ -12,6 +12,7 @@ import { convertNumberToMoney } from "utils/utilsFunctions";
 import BasicInput from "components/global/inputs/BasicInput";
 import LabeledInput from "components/global/inputs/LabeledInput";
 
+let dateStr = "";
 function Step3({
     deposit,
     setDeposit,
@@ -19,11 +20,14 @@ function Step3({
     setMonthPay,
     termDate,
     setTermDate,
+    name,
+    setName,
+    socialNumber,
+    setSocialNumber,
     allComplete,
     setAllComplete,
 }) {
     const { position, maxPosition, forwardHandler } = useTabLayout();
-    let dateStr = "";
 
     const depositHandler = (value) => {
         if (value.match(/^[0-9,]+$/)) {
@@ -32,6 +36,10 @@ function Step3({
                     parseInt(value.replaceAll(",", "")).toLocaleString()
                 );
             } else {
+                setDeposit("");
+            }
+        } else {
+            if (value.length < 1) {
                 setDeposit("");
             }
         }
@@ -46,30 +54,66 @@ function Step3({
             } else {
                 setMonthPay("");
             }
+        } else {
+            if (value.length < 1) {
+                setMonthPay("");
+            }
         }
     };
 
     const termDateHandler = (value) => {
-        if(value.length == 1) {
+        console.log(value.length);
+        if (value.length == 1) {
             dateStr = value;
             setTermDate(`${value}0.00.00 - 00.00.00`);
             return;
         }
-        if (value.length < 17) {
+        if (value.length < 19) {
             console.log("delete");
             // delete
             if (dateStr.length > 0) {
                 dateStr = dateStr.slice(0, -1);
-                console.log(dateStr.slice(0, 2));
-                setTermDate(`
-                    ${dateStr.slice(0, 2)}.${dateStr.slice(
-                    2,
-                    4
-                )}.${dateStr.slice(4, 6)} - ${dateStr.slice(
-                    6,
-                    8
-                )}.${dateStr.slice(8, 10)}.${dateStr.slice(10, 12)}
-                `);
+                setTermDate(
+                    `
+                    ${
+                        dateStr.slice(0, 2).length == 0
+                            ? "00"
+                            : dateStr.slice(0, 2).length == 1
+                            ? dateStr.slice(0, 2) + "0"
+                            : dateStr.slice(0, 2)
+                    }.${
+                        dateStr.slice(2, 4).length == 0
+                            ? "00"
+                            : dateStr.slice(2, 4).length == 1
+                            ? dateStr.slice(2, 4) + "0"
+                            : dateStr.slice(2, 4)
+                    }.${
+                        dateStr.slice(4, 6).length == 0
+                            ? "00"
+                            : dateStr.slice(4, 6).length == 1
+                            ? dateStr.slice(4, 6) + "0"
+                            : dateStr.slice(4, 6)
+                    } - ${
+                        dateStr.slice(6, 8).length == 0
+                            ? "00"
+                            : dateStr.slice(6, 8).length == 1
+                            ? dateStr.slice(6, 8) + "0"
+                            : dateStr.slice(6, 8)
+                    }.${
+                        dateStr.slice(8, 10).length == 0
+                            ? "00"
+                            : dateStr.slice(8, 10).length == 1
+                            ? dateStr.slice(8, 10) + "0"
+                            : dateStr.slice(8, 10)
+                    }.${
+                        dateStr.slice(10, 12).length == 0
+                            ? "00"
+                            : dateStr.slice(10, 12).length == 1
+                            ? dateStr.slice(10, 12) + "0"
+                            : dateStr.slice(10, 12)
+                    }
+                `.trim()
+                );
             } else {
                 setTermDate("");
             }
@@ -79,29 +123,74 @@ function Step3({
             const lastNumberString = value.slice(-1);
             if (lastNumberString.match(/^[0-9,]+$/)) {
                 if (dateStr.length > -1 && dateStr.length < 12) {
-                    dateStr += lastNumberString;
-                    console.log(dateStr.slice(0, 2));
-                    setTermDate(`
-                    ${dateStr.slice(0, 2)}.${dateStr.slice(
-                        2,
-                        4
-                    )}.${dateStr.slice(4, 6)} - ${dateStr.slice(
-                        6,
-                        8
-                    )}.${dateStr.slice(8, 10)}.${dateStr.slice(10, 12)}
-                `);
+                    dateStr = dateStr + lastNumberString;
+                    setTermDate(
+                        `
+                    ${
+                        dateStr.slice(0, 2).length == 0
+                            ? "00"
+                            : dateStr.slice(0, 2).length == 1
+                            ? dateStr.slice(0, 2) + "0"
+                            : dateStr.slice(0, 2)
+                    }.${
+                            dateStr.slice(2, 4).length == 0
+                                ? "00"
+                                : dateStr.slice(2, 4).length == 1
+                                ? dateStr.slice(2, 4) + "0"
+                                : dateStr.slice(2, 4)
+                        }.${
+                            dateStr.slice(4, 6).length == 0
+                                ? "00"
+                                : dateStr.slice(4, 6).length == 1
+                                ? dateStr.slice(4, 6) + "0"
+                                : dateStr.slice(4, 6)
+                        } - ${
+                            dateStr.slice(6, 8).length == 0
+                                ? "00"
+                                : dateStr.slice(6, 8).length == 1
+                                ? dateStr.slice(6, 8) + "0"
+                                : dateStr.slice(6, 8)
+                        }.${
+                            dateStr.slice(8, 10).length == 0
+                                ? "00"
+                                : dateStr.slice(8, 10).length == 1
+                                ? dateStr.slice(8, 10) + "0"
+                                : dateStr.slice(8, 10)
+                        }.${
+                            dateStr.slice(10, 12).length == 0
+                                ? "00"
+                                : dateStr.slice(10, 12).length == 1
+                                ? dateStr.slice(10, 12) + "0"
+                                : dateStr.slice(10, 12)
+                        }
+                `.trim()
+                    );
                 }
             }
         }
     };
 
-    useEffect(() => {
-        if (deposit.length > 0 && monthPay.length > 0) {
-            setAllComplete(true);
-        } else {
-            setAllComplete(false);
+    const nameHandler = (value) => {
+        setName(value);
+    };
+
+    const socialNumberHandler = (value) => {
+        if (value.match(/^[0-9,]+$/)) {
+            if (value.length > 0) {
+                setSocialNumber(value);
+            } else {
+                setSocialNumber("");
+            }
         }
-    }, [deposit, monthPay]);
+    };
+
+    // useEffect(() => {
+    //     if (deposit.length > 0 && l &&
+    //         setAllComplete(true);
+    //     } else {
+    //         setAllComplete(false);
+    //     }
+    // }, [deposit, monthPay]);
 
     return (
         <AllFullColumn cross={LayerAlign.center}>
@@ -139,7 +228,25 @@ function Step3({
                 placeholder={"00.00.00 - 00.00.00"}
             />
 
-            <ElasticBlock h={184} />
+            <ElasticBlock h={28} />
+            <LabeledInput
+                value={name}
+                setValue={nameHandler}
+                title={"임차인 이름"}
+                placeholder={"이름"}
+                isImportant
+            />
+
+            <ElasticBlock h={28} />
+            <LabeledInput
+                value={socialNumber}
+                setValue={socialNumberHandler}
+                title={"임차인 주민번호 앞자리"}
+                placeholder={"000000"}
+                isImportant
+            />
+
+            <ElasticBlock h={90} />
             <ElasticSizedBox w={320} h={48}>
                 <SimpleBtn onClick={forwardHandler} active={allComplete}>
                     다음

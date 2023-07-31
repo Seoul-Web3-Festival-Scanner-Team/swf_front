@@ -4,10 +4,14 @@ import { useEffect } from "react";
 
 const Container = styled.div`
     display: flex;
-    overflow: hidden;
+    overflow-y: scroll;
 
     width: 100%;
     height: 100%;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 `;
 
 const Tab = styled.div`

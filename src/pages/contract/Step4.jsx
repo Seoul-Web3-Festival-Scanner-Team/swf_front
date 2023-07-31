@@ -2,16 +2,16 @@ import SimpleBtn from "components/global/btns/SimpleBtn";
 import AllFullColumn from "components/utils/AllFullColumn";
 import ElasticSizedBox from "components/utils/ElasticSizedBox";
 import { LayerAlign } from "components/utils/WidgetUtils";
-import { QuestionText, StepText } from "./ContractPage";
+import { QuestionText, StepText, SubText } from "./ContractPage";
 import { useTabLayout } from "hooks/useTabLayout";
 import { useState } from "react";
 import ElasticBlock from "components/utils/ElasticBlock";
 import SquareBtn from "components/global/btns/SquareBtn";
 import Row from "components/utils/Row";
+import FileUploadInput from "components/global/inputs/FileUploadInput";
 
-function Step4() {
+function Step4({file, setFile}) {
     const { position, maxPosition, forwardHandler } = useTabLayout();
-    const [selectIndex, setSelectIndex] = useState(-1);
 
     return (
         <AllFullColumn cross={LayerAlign.center}>
@@ -21,30 +21,21 @@ function Step4() {
             </StepText>
 
             <ElasticBlock h={9} />
-            <QuestionText>둘 중 하나를 골라주세요</QuestionText>
+            <QuestionText>
+                부동산 임대차계약서
+                <br />
+                파일을 첨부해주세요
+            </QuestionText>
 
-            <ElasticBlock h={55} />
-            <Row fullWidth={true}>
-                <SquareBtn
-                    selected={selectIndex === 0}
-                    onClick={() => {
-                        setSelectIndex(0);
-                    }}>
-                    집주인이에요
-                </SquareBtn>
-                <ElasticBlock w={16} />
-                <SquareBtn
-                    selected={selectIndex === 1}
-                    onClick={() => {
-                        setSelectIndex(1);
-                    }}>
-                    세입자에요
-                </SquareBtn>
-            </Row>
+            <ElasticBlock h={12} />
+            <SubText>주민번호 뒷자리를 가린 후 올려주세요</SubText>
 
-            <ElasticBlock h={184} />
+            <ElasticBlock h={48} />
+            <FileUploadInput file={file} setFile={setFile} />
+
+            <ElasticBlock h={68} />
             <ElasticSizedBox w={320} h={48}>
-                <SimpleBtn onClick={forwardHandler} active={selectIndex !== -1}>
+                <SimpleBtn onClick={forwardHandler} active={file}>
                     다음
                 </SimpleBtn>
             </ElasticSizedBox>
