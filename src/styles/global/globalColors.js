@@ -1,6 +1,7 @@
 export const COLORS = {
     white: "#ffffff",
-    black: "#000000",
+    black: "#1F314E",
+    black_op_1: "rgba(31, 49, 78, 0.4)",
 
     dark_1: "#2a2a2a",
     dark_2: "#3a3a3a",
@@ -15,6 +16,7 @@ export const COLORS = {
     simple_gray_op_1: "rgba(31, 49, 78, 0.20)",
     simple_gray_op_2: "rgba(213, 219, 229, 0.40)",
     simple_gray_op_3: "rgba(213, 219, 229, 0.10)",
+    simple_gray_op_4: "rgba(213, 219, 229, 0.20)",
 
     simple_blue: "#498EF6",
     simple_blue_op: "rgba(73, 142, 246, 0.15)",

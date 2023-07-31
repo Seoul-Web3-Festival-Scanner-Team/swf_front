@@ -2,10 +2,9 @@ import Header from "components/global/Header";
 import BasicLayout from "components/layouts/BasicLayout";
 import InnerLayout from "components/layouts/InnerLayout";
 import TabLayout from "components/layouts/TabLayout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Step1 from "./Step1";
 import styled from "@emotion/styled";
-import { setVw } from "styles/global/globalScreen";
 import GlobalFont from "styles/global/globalFonts";
 import { COLORS } from "styles/global/globalColors";
 import { useTabLayout } from "hooks/useTabLayout";
@@ -29,12 +28,39 @@ export const QuestionText = styled.p`
 `;
 
 function ContractPage() {
-    const { position, maxPosition, backHandler } = useTabLayout();
+    const { position, backHandler, forwardHandler } = useTabLayout();
+    const history = window.history;
+    const location = window.location;
+
+    // const backFucntion = () => {
+    //     console.log("backFucntion");
+    //     if (position > 0) {
+    //         backHandler({ backAction: () => {} });
+    //     } else {
+    //         history.go(-2);
+    //     }
+    // };
+
+    // useEffect(() => {
+    //     window.addEventListener("popstate", backFucntion);
+    //     return () => {
+    //         window.removeEventListener("popstate", backFucntion);
+    //     };
+    // });
 
     return (
         <BasicLayout>
             <InnerLayout>
-                <Header title={"내 계약서 등록"} onBackClick={backHandler} />
+                <Header
+                    title={"내 계약서 등록"}
+                    onBackClick={() =>
+                        backHandler({
+                            backAction: () => {
+                                history.go(-1);
+                            },
+                        })
+                    }
+                />
                 <TabLayout tabList={[<Step1 />, <Step1 />]} />
             </InnerLayout>
         </BasicLayout>
