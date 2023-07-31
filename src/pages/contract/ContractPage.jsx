@@ -8,6 +8,11 @@ import styled from "@emotion/styled";
 import GlobalFont from "styles/global/globalFonts";
 import { COLORS } from "styles/global/globalColors";
 import { useTabLayout } from "hooks/useTabLayout";
+import Step2 from "./Step2";
+import Step3 from "./Step3";
+import Step4 from "./Step4";
+import Step5 from "./Step5";
+import Step6 from "./Step6";
 
 export const StepText = styled.p`
     ${GlobalFont({
@@ -31,6 +36,11 @@ function ContractPage() {
     const { position, backHandler, forwardHandler } = useTabLayout();
     const history = window.history;
     const location = window.location;
+
+    const [allComplete3, setAllComplete3] = useState(false);
+    const [deposit, setDeposit] = useState("");
+    const [monthPay, setMonthPay] = useState("");
+    const [termDate, setTermDate] = useState("");
 
     // const backFucntion = () => {
     //     console.log("backFucntion");
@@ -61,7 +71,25 @@ function ContractPage() {
                         })
                     }
                 />
-                <TabLayout tabList={[<Step1 />, <Step1 />]} />
+                <TabLayout
+                    tabList={[
+                        <Step1 />,
+                        <Step2 />,
+                        <Step3
+                            deposit={deposit}
+                            setDeposit={setDeposit}
+                            monthPay={monthPay}
+                            setMonthPay={setMonthPay}
+                            termDate={termDate}
+                            setTermDate={setTermDate}
+                            allComplete={allComplete3}
+                            setAllComplete={setAllComplete3}
+                        />,
+                        <Step4 />,
+                        <Step5 />,
+                        <Step6 />,
+                    ]}
+                />
             </InnerLayout>
         </BasicLayout>
     );
