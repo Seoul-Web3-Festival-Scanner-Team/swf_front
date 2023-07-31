@@ -1,5 +1,6 @@
 import { ModalType, useModal } from "components/providers/ModalProvider";
 import BasicModal from "./widgets/BasicModal";
+import ConfirmModal from "./widgets/ConfirmModal";
 
 function RootModal() {
     const { isModalOpen, type } = useModal();
@@ -10,8 +11,7 @@ function RootModal() {
         case ModalType.Basic:
             return <BasicModal />;
         case ModalType.Confirm:
-            return null;
-            // return <ConfirmModal />;
+            return <ConfirmModal />;
         case ModalType.Success:
             return null;
             // return <SuccessModal />;

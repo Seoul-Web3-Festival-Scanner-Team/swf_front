@@ -14,6 +14,7 @@ import Step4 from "./Step4";
 import Step5 from "./Step5";
 import Step6 from "./Step6";
 import { useModal } from "components/providers/ModalProvider";
+import { ModalType } from "components/providers/ModalProvider";
 
 export const StepText = styled.p`
     ${GlobalFont({
@@ -43,10 +44,10 @@ export const SubText = styled.p`
 `;
 
 function ContractPage() {
-    const { backHandler} = useTabLayout();
-    const { modal, openModal } = useModal();
+    const { backHandler } = useTabLayout();
+    const { modal, openModal, closeModal } = useModal();
     const history = window.history;
-    // const location = window.location;
+    const location = window.location;
 
     // Step1
     const [selectIndex1, setSelectIndex1] = useState(0);
@@ -71,21 +72,31 @@ function ContractPage() {
     // Step6
     const [selectIndex3, setSelectIndex3] = useState(0);
 
-    // const backFucntion = () => {
-    //     console.log("backFucntion");
-    //     if (position > 0) {
-    //         backHandler({ backAction: () => {} });
-    //     } else {
-    //         history.go(-2);
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     window.addEventListener("popstate", backFucntion);
-    //     return () => {
-    //         window.removeEventListener("popstate", backFucntion);
-    //     };
-    // });
+    useEffect(() => {
+        window.onpopstate = function () {
+            history.pushState(null, null, location.href);
+            history.go(1);
+            backHandler({
+                backAction: () => {
+                    openModal({
+                        type: ModalType.Confirm,
+                        params: {
+                            title: "정말 나가시겠어요? :(",
+                            content: "지금 나가면 계약 내용이 저장되지 않아요",
+                            confirmText: "나가기",
+                            cancelText: "이어 등록하기",
+                            onConfirm: () => {
+                                history.go(-1);
+                            },
+                            onCancel: () => {
+                                closeModal();
+                            },
+                        },
+                    });
+                },
+            });
+        };
+    });
 
     return (
         <BasicLayout>
