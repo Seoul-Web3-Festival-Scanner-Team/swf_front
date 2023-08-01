@@ -31,11 +31,6 @@ const ABI = [
                 type: "string",
             },
             {
-                internalType: "string",
-                name: "",
-                type: "string",
-            },
-            {
                 internalType: "uint256",
                 name: "",
                 type: "uint256",
@@ -43,6 +38,11 @@ const ABI = [
         ],
         name: "datas",
         outputs: [
+            {
+                internalType: "string",
+                name: "detail",
+                type: "string",
+            },
             {
                 internalType: "uint8",
                 name: "rentType",
