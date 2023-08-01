@@ -94,109 +94,6 @@ const ContractCotentsAllBox = styled.div`
     margin-top: 14px;
 `;
 
-const ContractCotentsBox = styled.div`
-    display: flex;
-    width: 320px;
-    padding: 24px 0px;
-    align-items: center;
-    gap: 173px;
-`;
-
-const ContractContentsTextBox = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-`;
-
-const ContractContentsTextUpperBox = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 5px;
-`;
-
-const ContractContentsTextTitle = styled.div`
-    color: var(--black-100, #1f314e);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    opacity: 0.8;
-`;
-
-const ContractContentsTextBedge = styled.div`
-    display: flex;
-    padding: 3px 7px;
-    align-items: flex-start;
-    gap: 10px;
-    border-radius: 8px;
-    background: var(--blue-15, rgba(73, 142, 246, 0.15));
-`;
-const ContractContentsTextBedgeText = styled.div`
-    color: var(--blue-100, #498ef6);
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-`;
-
-const ContractContentsTextBedgeYellow = styled.div`
-    display: flex;
-    padding: 3px 7px;
-    align-items: flex-start;
-    gap: 10px;
-    border-radius: 8px;
-    background: var(--yellow-25, rgba(255, 209, 92, 0.25));
-`;
-const ContractContentsTextBedgeTextYellow = styled.div`
-    color: var(--orange-100, #ffa800);
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-`;
-
-const ContractContentsTextBedgeGreen = styled.div`
-    display: flex;
-    padding: 3px 7px;
-    align-items: flex-start;
-    gap: 10px;
-    border-radius: 8px;
-    background: rgba(61, 226, 147, 0.15);
-`;
-const ContractContentsTextBedgeTextGreen = styled.div`
-    color: #06c168;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-`;
-
-const ContractContentsTextBedgeRed = styled.div`
-    display: flex;
-    padding: 3px 7px;
-    align-items: flex-start;
-    gap: 10px;
-    border-radius: 8px;
-    background: rgba(255, 92, 112, 0.15);
-`;
-const ContractContentsTextBedgeTextRed = styled.div`
-    color: #ff5c70;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-`;
-
-const ContractContentsTextLowerBox = styled.div`
-    color: var(--black-40, rgba(31, 49, 78, 0.4));
-    font-family: Pretendard;
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-`;
-
 function SearchMapPage() {
     const { state, search } = useLocation();
     const { showToast } = useToast();
@@ -217,9 +114,9 @@ function SearchMapPage() {
     };
 
     useEffect(() => {
-        getContractData();
+        // getContractData();
         if (search.split("=")[1] === "new") {
-            openModal({ params: { title: "경고!" } });
+            // openModal({ params: { title: "경고!" } });
             showToast({
                 type: ToastType.Basic,
                 params: {
@@ -270,43 +167,37 @@ function SearchMapPage() {
                     </ContractTitleBox>
                     <ContractCotentsAllBox>
                         {search.split("=")[1] === "new" ? (
-                            <ContractCotentsBox>
-                                <ContractContentsTextBox>
-                                    <ContractContentsTextUpperBox>
-                                        <ContractContentsTextTitle>
-                                            101호
-                                        </ContractContentsTextTitle>
-                                        <ContractContentsTextBedge>
-                                            <ContractContentsTextBedgeText>
-                                                전세
-                                            </ContractContentsTextBedgeText>
-                                        </ContractContentsTextBedge>
-                                        <ContractContentsTextBedgeRed>
-                                            <ContractContentsTextBedgeTextRed>
-                                                New
-                                            </ContractContentsTextBedgeTextRed>
-                                        </ContractContentsTextBedgeRed>
-                                    </ContractContentsTextUpperBox>
-                                    <ContractContentsTextLowerBox>
-                                        계약 일자 23.07.31
-                                    </ContractContentsTextLowerBox>
-                                    <ContractContentsTextLowerBox>
-                                        계약 기간 23.08.15 - 25.08.14
-                                    </ContractContentsTextLowerBox>
-                                </ContractContentsTextBox>
-                            </ContractCotentsBox>
+                        <AccordionBox
+                            selected={selected === 0}
+                            setSelected={setSelected}
+                            title="101호"
+                            termStartDate = "2023.08.05"
+                            termEndDate = "2025.08.04"
+                            contractDate = "2023.07.15"
+                            deposit = "200,000,000"
+                            isNew
+                        />
                         ) : null}
                         <AccordionBox
                             selected={selected === 0}
                             setSelected={setSelected}
-                            title={"101동 101호"}
-                            liveType={"월세"}
+                            title="101호"
+                            termStartDate = "2021.08.03"
+                            termEndDate = "2023.08.02"
+                            contractDate = "2021.06.21"
+                            deposit = "200,000,000"
                             nowLiving
                         />
                         <AccordionBox
                             selected={selected === 1}
                             setSelected={setSelected}
-                            title={"101동 101호"}
+                            liveType="월세"
+                            title="101호"
+                            termStartDate = "2019.07.20"
+                            termEndDate = "2021.07.19"
+                            contractDate = "2021.06.25"
+                            deposit = "100,000,000"
+                            monthPay = "800,000"
                         />
                     </ContractCotentsAllBox>
                 </ContractBox>

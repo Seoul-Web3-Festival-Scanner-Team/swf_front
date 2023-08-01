@@ -76,10 +76,10 @@ function ContractPage() {
     const [socialNumber, setSocialNumber] = useState("");
 
     // Step4
-    const [file1, setFile1] = useState(true);
+    const [file1, setFile1] = useState(false);
 
     // Step5
-    const [file2, setFile2] = useState(true);
+    const [file2, setFile2] = useState(false);
 
     // Step6
     const [selectIndex3, setSelectIndex3] = useState(0);

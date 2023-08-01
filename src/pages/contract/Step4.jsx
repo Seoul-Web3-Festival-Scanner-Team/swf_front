@@ -6,6 +6,7 @@ import { QuestionText, StepText, SubText } from "./ContractPage";
 import { useTabLayout } from "hooks/useTabLayout";
 import ElasticBlock from "components/utils/ElasticBlock";
 import FileUploadInput from "components/global/inputs/FileUploadInput";
+import Back from 'assets/imgs/임대차계약서.png';
 
 function Step4({file, setFile}) {
     const { position, maxPosition, forwardHandler } = useTabLayout();
@@ -28,7 +29,7 @@ function Step4({file, setFile}) {
             <SubText>주민번호 뒷자리를 가린 후 올려주세요</SubText>
 
             <ElasticBlock h={48} />
-            <FileUploadInput file={file} setFile={setFile} />
+            <FileUploadInput file={file} setFile={setFile} back={Back} />
 
             <ElasticBlock h={68} />
             <ElasticSizedBox w={320} h={48}>
