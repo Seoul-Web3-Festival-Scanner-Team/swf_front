@@ -123,7 +123,7 @@ function Step3({
                 isImportant
             />
 
-            {selectIndex === 0 && (
+            {selectIndex === 1 && (
                 <>
                     <ElasticBlock h={28} />
                     <LabeledInput
