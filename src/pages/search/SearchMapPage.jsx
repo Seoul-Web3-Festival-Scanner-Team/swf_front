@@ -8,6 +8,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import {ReactComponent as PlusIcon} from "assets/icons/ic-plus.svg";
 import { ToastType, useToast } from "components/providers/ToastProvider";
+import ContractConnector from "networks/ContractConnector";
 
 const MapTitleBox = styled.div`
 display: flex;
@@ -172,7 +173,7 @@ const ContractContentsTextLowerBox = styled.div`
   font-size: 13px;
   font-style: normal;
   font-weight: 400;
-  line-height: normal;  
+  line-height: normal;
 `
 
 
@@ -184,7 +185,14 @@ function SearchMapPage() {
   const [result, setResult] = useState("");
   const navigate = useNavigate();
 
+  const getContractData = async () => {
+    const contract = new ContractConnector();
+    console.log('await contract.getDatas()');
+    console.log(await contract.getDatas('주소'));
+  }
+
   useEffect(() => {
+    getContractData();
     if (search.split("=")[1] === "new") {
       showToast({
         type: ToastType.Basic,

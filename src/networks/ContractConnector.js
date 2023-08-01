@@ -21,6 +21,7 @@ class ContractConnector {
                     contractDate: ethers.toNumber(data.contractDate),
                 });
             } catch (e) {
+                console.log(e);
                 break;
             }
         }
@@ -30,3 +31,5 @@ class ContractConnector {
 
     async addData(address, rentType, rentStart, rentEnd, contractDate) {}
 }
+
+export default ContractConnector;
