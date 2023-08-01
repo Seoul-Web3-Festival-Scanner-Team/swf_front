@@ -16,6 +16,7 @@ import { ToastType, useToast } from "components/providers/ToastProvider";
 import ContractConnector from "networks/ContractConnector";
 import { useModal } from "components/providers/ModalProvider";
 import AccordionBox from "components/global/AccordionBox";
+import { convertUnixTimeToDateString } from "utils/utilsFunctions";
 
 const MapTitleBox = styled.div`
     display: flex;
@@ -52,6 +53,7 @@ const MapGap = styled.div`
 `;
 
 const ContractBox = styled.div`
+    width: 100%;
     padding: 28px 20px 0 20px;
 `;
 
@@ -95,9 +97,7 @@ const ContractCotentsAllBox = styled.div`
 `;
 
 function SearchMapPage() {
-    const { state, search } = useLocation();
-    const { showToast } = useToast();
-    const { openModal } = useModal();
+    const { state } = useLocation();
     const { kakao } = window;
     const [center, setCenter] = useState({
         lat: 37.5049929789478,
@@ -106,40 +106,53 @@ function SearchMapPage() {
     const [result, setResult] = useState("");
     const navigate = useNavigate();
     const [selected, setSelected] = useState(-1);
+    const [contractDatas, setContractDatas] = useState([]);
+    // const [contractDatas, setContractDatas] = useState([
+    //     {
+    //         detail: "주소",
+    //         rentType: 0,
+    //         rentStart: Date.now(),
+    //         rentEnd: Date.now(),
+    //         contractDate: Date.now(),
+    //     },
+    // ]);
 
     const getContractData = async () => {
         const contract = new ContractConnector();
-        console.log("await contract.getDatas()");
-        console.log(await contract.getDatas("주소"));
+        const data = await contract.getDatas(state[0]["address_name"]);
+        setContractDatas(data);
     };
 
     useEffect(() => {
-        // getContractData();
-        if (search.split("=")[1] === "new") {
-            // openModal({ params: { title: "경고!" } });
-            showToast({
-                type: ToastType.Basic,
-                params: {
-                    content: "내 계약이 등록되었어요 :)",
-                },
+        localStorage.setItem("address", state[0]["address_name"]);
+        try {
+            setResult({
+                title: !!state[0]["road_address"]["building_name"]
+                    ? state[0]["road_address"]["building_name"]
+                    : state[0]["address_name"],
+                address: state[0]["address_name"],
+                latlng: { lat: state[0]["y"], lng: state[0]["x"] },
             });
+            setCenter({ lat: state[0]["y"], lng: state[0]["x"] });
+        } catch (e) {
+            console.log(e);
         }
-        setResult({
-            title: !!state[0]["road_address"]["building_name"]
-                ? state[0]["road_address"]["building_name"]
-                : state[0]["address_name"],
-            address: state[0]["address_name"],
-            latlng: { lat: state[0]["y"], lng: state[0]["x"] },
-        });
-        setCenter({ lat: state[0]["y"], lng: state[0]["x"] });
     }, []);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            getContractData();
+        }, 1000);
+
+        return () => clearInterval(interval);
+    });
 
     return (
         <BasicLayout>
             <InnerLayout>
                 <Header
                     onBackClick={() => {
-                        navigate("/");
+                        navigate("/search");
                     }}
                 />
                 <Map
@@ -162,7 +175,9 @@ function SearchMapPage() {
                     <ContractTitleBox>
                         <ContractTitleText>계약 정보</ContractTitleText>
                         <ContractTitleButton
-                            onClick={() => navigate("/contract")}>
+                            onClick={() => {
+                                navigate("/contract", { reload: true });
+                            }}>
                             <PlusIcon style={{ width: "24px" }} />
                             <ContractTitleButtonText>
                                 내 계약서 등록
@@ -170,39 +185,25 @@ function SearchMapPage() {
                         </ContractTitleButton>
                     </ContractTitleBox>
                     <ContractCotentsAllBox>
-                        {search.split("=")[1] === "new" ? (
-                        <AccordionBox
-                            selected={selected === 0}
-                            setSelected={setSelected}
-                            title="101호"
-                            termStartDate = "2023.08.05"
-                            termEndDate = "2025.08.04"
-                            contractDate = "2023.07.15"
-                            deposit = "200,000,000"
-                            isNew
-                        />
-                        ) : null}
-                        <AccordionBox
-                            selected={selected === 0}
-                            setSelected={setSelected}
-                            title="101호"
-                            termStartDate = "2021.08.03"
-                            termEndDate = "2023.08.02"
-                            contractDate = "2021.06.21"
-                            deposit = "200,000,000"
-                            nowLiving
-                        />
-                        <AccordionBox
-                            selected={selected === 1}
-                            setSelected={setSelected}
-                            liveType="월세"
-                            title="101호"
-                            termStartDate = "2019.07.20"
-                            termEndDate = "2021.07.19"
-                            contractDate = "2021.06.25"
-                            deposit = "100,000,000"
-                            monthPay = "800,000"
-                        />
+                        {contractDatas.map((data, index) => (
+                            <AccordionBox
+                                key={index}
+                                selected={selected === 0}
+                                setSelected={setSelected}
+                                title={data.detail}
+                                termStartDate={convertUnixTimeToDateString(
+                                    data.rentStart
+                                )}
+                                termEndDate={convertUnixTimeToDateString(
+                                    data.rentEnd
+                                )}
+                                contractDate={convertUnixTimeToDateString(
+                                    data.contractDate
+                                )}
+                                deposit="200,000,000"
+                                nowLiving
+                            />
+                        ))}
                     </ContractCotentsAllBox>
                 </ContractBox>
             </InnerLayout>

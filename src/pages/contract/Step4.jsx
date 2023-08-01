@@ -6,7 +6,7 @@ import { QuestionText, StepText, SubText } from "./ContractPage";
 import { useTabLayout } from "hooks/useTabLayout";
 import ElasticBlock from "components/utils/ElasticBlock";
 import FileUploadInput from "components/global/inputs/FileUploadInput";
-import Back from 'assets/imgs/임대차계약서.png';
+import Back from 'assets/imgs/임대차계약서.png';
 
 function Step4({file, setFile}) {
     const { position, maxPosition, forwardHandler } = useTabLayout();

@@ -25,7 +25,6 @@ function Step3({
     socialNumber,
     setSocialNumber,
     allComplete,
-    setAllComplete,
     selectIndex,
 }) {
     const { openModal } = useModal();
@@ -224,6 +223,7 @@ function Step3({
                 setValue={socialNumberHandler}
                 title={"임차인 주민번호 앞자리"}
                 placeholder={"000000"}
+                maxLength={6}
                 isImportant
             />
 

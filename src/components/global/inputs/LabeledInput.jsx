@@ -45,6 +45,7 @@ function LabeledInput({
     isImportant = false,
     active = true,
     onClick = () => {},
+    maxLength,
     ...props
 }) {
     return (
@@ -67,6 +68,7 @@ function LabeledInput({
                         placeholder={placeholder}
                         round={"10px"}
                         disabled={!active}
+                        maxLength={maxLength}
                     />
                     {unit === "" ? null : <ElasticBlock w={8} />}
                     <UnitWrapper weight={600}>{unit}</UnitWrapper>
