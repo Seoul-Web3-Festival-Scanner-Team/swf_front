@@ -119,6 +119,12 @@ function ContractPage() {
                 // const convert = JSON.parse(localStorage.getItem("tempState"));
                 // navigate("/search/map", { state: convert });
                 history.back();
+                showToast({
+                    type: ToastType.Basic,
+                    params: {
+                        content: "내 계약이 등록되었어요 :)",
+                    },
+                });
             }, 6000);
         }
     }, [loading]);
@@ -247,12 +253,6 @@ function ContractPage() {
                                             rentStart: termStartDate.getTime(),
                                             rentEnd: termEndDate.getTime(),
                                             contractDate: contractDate.getTime(),
-                                        });
-                                        showToast({
-                                            type: ToastType.Basic,
-                                            params: {
-                                                content: "내 계약이 등록되었어요 :)",
-                                            },
                                         });
                                     }}
                                 />,
