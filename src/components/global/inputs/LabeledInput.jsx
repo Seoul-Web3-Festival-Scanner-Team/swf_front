@@ -43,7 +43,7 @@ function LabeledInput({
     subTitle = "",
     unit = "",
     isImportant = false,
-    active,
+    active = true,
     onClick = () => {},
     ...props
 }) {
@@ -59,8 +59,7 @@ function LabeledInput({
             <ElasticSizedBox w={316} h={48}>
                 <AllFullRow
                     cross={LayerAlign.center}
-                    onClick={onClick}
-                    styles={{ cursor: "pointer" }}>
+                    onClick={onClick}>
                     <BasicInput
                         type={type}
                         value={value}

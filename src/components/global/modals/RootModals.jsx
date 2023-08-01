@@ -1,6 +1,7 @@
 import { ModalType, useModal } from "components/providers/ModalProvider";
 import BasicModal from "./widgets/BasicModal";
 import ConfirmModal from "./widgets/ConfirmModal";
+import DatePickerModal from "./widgets/DatePickModal";
 
 function RootModal() {
     const { isModalOpen, type } = useModal();
@@ -12,9 +13,8 @@ function RootModal() {
             return <BasicModal />;
         case ModalType.Confirm:
             return <ConfirmModal />;
-        case ModalType.Success:
-            return null;
-            // return <SuccessModal />;
+        case ModalType.DatePicker:
+            return <DatePickerModal />;
         case ModalType.Loading:
             return null;
             // return <LoadingModal />;

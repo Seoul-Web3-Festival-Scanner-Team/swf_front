@@ -4,6 +4,7 @@ import RootModal from "components/global/modals/RootModals";
 export const ModalType = {
     Basic: "basic",
     Confirm: "confirm",
+    Date: "date",
     Success: "success",
     Loading: "loading",
     Warning: "warning",

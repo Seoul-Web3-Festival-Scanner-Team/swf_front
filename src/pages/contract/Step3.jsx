@@ -6,6 +6,7 @@ import { QuestionText, StepText } from "./ContractPage";
 import { useTabLayout } from "hooks/useTabLayout";
 import ElasticBlock from "components/utils/ElasticBlock";
 import LabeledInput from "components/global/inputs/LabeledInput";
+import { ModalType, useModal } from "components/providers/ModalProvider";
 
 let dateStr = "";
 function Step3({
@@ -23,6 +24,7 @@ function Step3({
     setAllComplete,
     selectIndex,
 }) {
+    const { openModal } = useModal();
     const { position, maxPosition, forwardHandler } = useTabLayout();
 
     const depositHandler = (value) => {
@@ -116,7 +118,9 @@ function Step3({
             <ElasticBlock h={28} />
             <LabeledInput
                 onClick={() => {
-                    console.log("hi");
+                    openModal({
+                        type: ModalType,
+                    });
                 }}
                 title={"계약 기간"}
                 subTitle={"(시작)"}
@@ -128,7 +132,7 @@ function Step3({
             <ElasticBlock h={28} />
             <LabeledInput
                 onClick={() => {
-                    console.log("hi");
+                    openModal({});
                 }}
                 title={"계약 기간"}
                 subTitle={"(만료)"}

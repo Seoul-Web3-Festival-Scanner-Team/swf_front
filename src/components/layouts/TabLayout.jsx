@@ -5,6 +5,7 @@ import { useEffect } from "react";
 const Container = styled.div`
     display: flex;
     overflow-y: scroll;
+    overflow-x: hidden;
 
     width: 100%;
     height: 100%;
