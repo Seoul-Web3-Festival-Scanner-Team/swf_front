@@ -5,6 +5,12 @@ import AllFullColumn from "components/utils/AllFullColumn";
 import { LayerAlign } from "components/utils/WidgetUtils";
 import { useModal } from "components/providers/ModalProvider";
 import { FadeInKf, TopToBottomKf } from "utils/animations/BasicAnimations";
+import { setVw } from "styles/global/globalScreen";
+import ElasticText from "components/utils/ElasticText";
+import { COLORS } from "styles/global/globalColors";
+import ElasticBlock from "components/utils/ElasticBlock";
+import ElasticSizedBox from "components/utils/ElasticSizedBox";
+import SimpleBtn, { BUTTON_MODE } from "components/global/btns/SimpleBtn";
 
 const Container = styled.div`
     display: flex;
@@ -12,8 +18,8 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
 
-    width: 300px;
-    height: 150px;
+    ${setVw("width", 320)}
+    ${setVw("height", 206)}
 
     background-color: #fff;
     border-radius: 10px;
@@ -23,11 +29,8 @@ const Container = styled.div`
     animation: ${TopToBottomKf} 0.3s ease-in-out, ${FadeInKf} 0.3s ease-in-out;
 `;
 
-const Title = styled.div`
-    font-size: 20px;
-    font-weight: bold;
-    color: #000;
-`;
+const Title = styled(ElasticText)``;
+const SubText = styled(ElasticText)``;
 
 function BasicModal() {
     const { closeModal, params } = useModal();
@@ -52,9 +55,22 @@ function BasicModal() {
     return (
         <ModalWrapper>
             <Container ref={innerRef}>
-                <AllFullColumn main={LayerAlign.start} cross={LayerAlign.start}>
+                <Title color={COLORS.black} size={20} weight={700}>
+                    {params.title}
+                </Title>
 
-                </AllFullColumn>
+                <ElasticBlock h={12} />
+                <SubText color={COLORS.black_op_1} size={16} weight={500}>
+                    최근 7일 내에 계약이 있었던 매물이예요.<br/>
+                    이중 / 중복 계약은 아닌지 유의해주세요.
+                </SubText>
+
+                <ElasticBlock h={28} />
+                <ElasticSizedBox w={280} h={48}>
+                    <SimpleBtn onClick={closeModal} mode={BUTTON_MODE.FILLED}>
+                        확인했어요
+                    </SimpleBtn>
+                </ElasticSizedBox>
             </Container>
         </ModalWrapper>
     );

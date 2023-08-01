@@ -1,7 +1,7 @@
 export const COLORS = {
     white: "#ffffff",
     black: "#1F314E",
-    black_op_1: "rgba(31, 49, 78, 0.4)",
+    black_op_1: "rgba(34, 50, 76, 0.5)",
 
     dark_1: "#2a2a2a",
     dark_2: "#3a3a3a",
