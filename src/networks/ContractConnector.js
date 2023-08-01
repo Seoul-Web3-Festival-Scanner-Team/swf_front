@@ -19,16 +19,14 @@ class ContractConnector {
                     rentStart: ethers.toNumber(data.rentStart),
                     rentEnd: ethers.toNumber(data.rentEnd),
                     contractDate: ethers.toNumber(data.contractDate),
-            });
+                });
             } catch (e) {
                 break;
             }
         }
 
-        return result; // {rentType, rentStart, rentEnd, contractDate}
+        return result; // {detail, rentType, rentStart, rentEnd, contractDate}
     }
 
-    async addData(address, rentType, rentStart, rentEnd, contractDate) {
-
-    }
+    async addData(address, rentType, rentStart, rentEnd, contractDate) {}
 }
