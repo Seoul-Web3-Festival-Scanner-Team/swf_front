@@ -7,6 +7,10 @@ import { useTabLayout } from "hooks/useTabLayout";
 import ElasticBlock from "components/utils/ElasticBlock";
 import SquareBtn from "components/global/btns/SquareBtn";
 import Row from "components/utils/Row";
+import {ReactComponent as RenterIcon} from "assets/icons/ic-renter.svg";
+import {ReactComponent as RenterActiveIcon} from "assets/icons/ic-renter-active.svg";
+import {ReactComponent as RenteeIcon} from "assets/icons/ic-rentee.svg";
+import {ReactComponent as RenteeActiveIcon} from "assets/icons/ic-rentee-active.svg";
 
 function Step1({ selectIndex, setSelectIndex, onNext = () => {} }) {
     const { position, maxPosition, forwardHandler } = useTabLayout();
@@ -24,6 +28,7 @@ function Step1({ selectIndex, setSelectIndex, onNext = () => {} }) {
             <ElasticBlock h={55} />
             <Row fullWidth={true}>
                 <SquareBtn
+                    icon={selectIndex === 0 ? <RenterActiveIcon/> : <RenterIcon/>}
                     selected={selectIndex === 0}
                     onClick={() => {
                         setSelectIndex(0);
@@ -32,6 +37,7 @@ function Step1({ selectIndex, setSelectIndex, onNext = () => {} }) {
                 </SquareBtn>
                 <ElasticBlock w={16} />
                 <SquareBtn
+                    icon={selectIndex === 1 ? <RenteeActiveIcon/> : <RenteeIcon/>}
                     selected={selectIndex === 1}
                     onClick={() => {
                         setSelectIndex(1);

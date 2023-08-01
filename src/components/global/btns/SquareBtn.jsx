@@ -41,6 +41,9 @@ const Container = styled.button`
 `;
 
 const Circle = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     ${setVw("width", 80)}
     ${setVw("height", 80)}
 
@@ -53,7 +56,7 @@ const Circle = styled.div`
     `}
 `;
 function SquareBtn({
-    icon = "",
+    icon,
     children,
     onClick = () => {},
     selected = true,
