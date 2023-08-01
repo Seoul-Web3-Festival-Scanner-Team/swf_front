@@ -2,21 +2,39 @@ import { keyframes } from "@emotion/react";
 
 export const TopToBottomKf = keyframes`
         0% {
-            transform: translateY(0px);
+            transform: translateY(-10px);
         }
         100% {
-            transform: translateY(20px);
+            transform: translateY(0px);
         }
     `;
 
 export const BottomToTopKf = keyframes`
         0% {
-            transform: translateY(0px);
+            transform: translateY(10px);
         }
         100% {
-            transform: translateY(20px);
+            transform: translateY(0px);
         }
     `;
+
+export const TopToBottomPlusKf = keyframes`
+    0% {
+        transform: translateY(0px);
+    }
+    100% {
+        transform: translateY(20px);
+    }
+`;
+
+export const BottomToTopPlusKf = keyframes`
+    0% {
+        transform: translateY(0px);
+    }
+    100% {
+        transform: translateY(20px);
+    }
+`;
 
 export const ScaleTopToBottomKf = keyframes`
         0% {

@@ -4,12 +4,7 @@ import ElasticSizedBox from "components/utils/ElasticSizedBox";
 import { LayerAlign } from "components/utils/WidgetUtils";
 import { QuestionText, StepText } from "./ContractPage";
 import { useTabLayout } from "hooks/useTabLayout";
-import { useEffect, useState } from "react";
 import ElasticBlock from "components/utils/ElasticBlock";
-import SquareBtn from "components/global/btns/SquareBtn";
-import Row from "components/utils/Row";
-import { convertNumberToMoney } from "utils/utilsFunctions";
-import BasicInput from "components/global/inputs/BasicInput";
 import LabeledInput from "components/global/inputs/LabeledInput";
 
 let dateStr = "";

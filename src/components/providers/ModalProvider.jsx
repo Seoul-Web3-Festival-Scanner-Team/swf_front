@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
-import RootModal from 'components/global/modals/RootModals';
+import RootModal from "components/global/modals/RootModals";
 
 export const ModalType = {
     Basic: "basic",
@@ -8,6 +8,32 @@ export const ModalType = {
     Loading: "loading",
     Warning: "warning",
     Error: "error",
+};
+
+export const ModalParams = {
+    Basic: ({ title, content }) => {
+        return {
+            title,
+            content,
+        };
+    },
+    Confirm: ({
+        title,
+        content,
+        confirmText,
+        cancelText,
+        onConfirm,
+        onCancel,
+    }) => {
+        return {
+            title,
+            content,
+            confirmText,
+            cancelText,
+            onConfirm,
+            onCancel,
+        };
+    },
 };
 
 const ModalContext = createContext();

@@ -3,7 +3,7 @@ import ToastWrapper from "./ToastWrapper";
 import { setVw } from "styles/global/globalScreen";
 import { COLORS } from "styles/global/globalColors";
 import { useEffect } from "react";
-import { FadeInKf, FadeOutKf, TopToBottomKf } from "utils/animations/BasicAnimations";
+import { FadeInKf, FadeOutKf, TopToBottomKf, TopToBottomPlusKf } from "utils/animations/BasicAnimations";
 import { useToast } from "components/providers/ToastProvider";
 
 const BackBoard = styled.div`
@@ -27,7 +27,7 @@ const BackBoard = styled.div`
 
     animation: ${FadeInKf} 800ms ease-in-out,
         ${FadeOutKf} 1500ms ease-in-out 4700ms,
-        ${TopToBottomKf} 1500ms ease-in-out 4700ms;
+        ${TopToBottomPlusKf} 1500ms ease-in-out 4700ms;
 `;
 
 function BasicToast() {

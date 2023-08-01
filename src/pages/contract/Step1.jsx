@@ -4,12 +4,11 @@ import ElasticSizedBox from "components/utils/ElasticSizedBox";
 import { LayerAlign } from "components/utils/WidgetUtils";
 import { QuestionText, StepText } from "./ContractPage";
 import { useTabLayout } from "hooks/useTabLayout";
-import { useState } from "react";
 import ElasticBlock from "components/utils/ElasticBlock";
 import SquareBtn from "components/global/btns/SquareBtn";
 import Row from "components/utils/Row";
 
-function Step1({ selectIndex, setSelectIndex }) {
+function Step1({ selectIndex, setSelectIndex, onNext = () => {} }) {
     const { position, maxPosition, forwardHandler } = useTabLayout();
 
     return (
@@ -43,7 +42,10 @@ function Step1({ selectIndex, setSelectIndex }) {
 
             <ElasticBlock h={184} />
             <ElasticSizedBox w={320} h={48}>
-                <SimpleBtn onClick={forwardHandler} active={selectIndex !== -1}>
+                <SimpleBtn onClick={() => {
+                    forwardHandler({});
+                    onNext();
+                }} active={selectIndex !== -1}>
                     다음
                 </SimpleBtn>
             </ElasticSizedBox>

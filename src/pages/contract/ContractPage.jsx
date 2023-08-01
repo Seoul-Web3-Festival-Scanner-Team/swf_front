@@ -17,8 +17,8 @@ import { useModal } from "components/providers/ModalProvider";
 import { ModalType } from "components/providers/ModalProvider";
 import StoreLoading from "./StoreLoading";
 import { ToastType, useToast } from "components/providers/ToastProvider";
-import SimpleBtn from "components/global/btns/SimpleBtn";
 import { useNavigate } from "react-router-dom";
+import NotValidUser from "./NotValidUser";
 
 export const StepText = styled.p`
     ${GlobalFont({
@@ -44,20 +44,22 @@ export const SubText = styled.p`
         size: 16,
         weight: 500,
         height: 21,
+        align: "center",
     })}
 `;
 
 function ContractPage() {
     const { backHandler } = useTabLayout();
-    const { modal, openModal, closeModal } = useModal();
-    const { isToastShow, showToast, closeToast } = useToast();
+    const { openModal, closeModal } = useModal();
+    const { showToast } = useToast();
     const history = window.history;
     const location = window.location;
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const [isVaildUser, setIsVaildUser] = useState(true); // [true: 유효한 유저, false: 유효하지 않은 유저
 
     // Step1
-    const [selectIndex1, setSelectIndex1] = useState(0);
+    const [selectIndex1, setSelectIndex1] = useState(1);
 
     // Step2
     const [selectIndex2, setSelectIndex2] = useState(0);
@@ -126,75 +128,80 @@ function ContractPage() {
                 <InnerLayout>
                     <StoreLoading />
                 </InnerLayout>
-            ) : (
+            ) : !isVaildUser ? (
                 <InnerLayout>
-                    <Header
-                        title={"내 계약서 등록"}
-                        onBackClick={() =>
-                            backHandler({
-                                backAction: () => {
-                                    openModal({
-                                        type: ModalType.Confirm,
-                                        params: {
-                                            title: "정말 나가시겠어요? :(",
-                                            content:
-                                                "지금 나가면 계약 내용이 저장되지 않아요",
-                                            confirmText: "나가기",
-                                            cancelText: "이어 등록하기",
-                                            onConfirm: () => {
-                                                history.go(-2);
-                                            },
-                                            onCancel: () => {
-                                                closeModal();
-                                            },
-                                        },
-                                    });
-                                },
-                            })
-                        }
-                    />
-                    <TabLayout
-                        tabList={[
-                            <Step1
-                                selectIndex={selectIndex1}
-                                setSelectIndex={setSelectIndex1}
-                            />,
-                            <Step2
-                                selectIndex={selectIndex2}
-                                setSelectIndex={setSelectIndex2}
-                            />,
-                            <Step3
-                                deposit={deposit}
-                                setDeposit={setDeposit}
-                                monthPay={monthPay}
-                                setMonthPay={setMonthPay}
-                                termDate={termDate}
-                                setTermDate={setTermDate}
-                                name={name}
-                                setName={setName}
-                                socialNumber={socialNumber}
-                                setSocialNumber={setSocialNumber}
-                                allComplete={allComplete3}
-                                setAllComplete={setAllComplete3}
-                            />,
-                            <Step4 file={file1} setFile={setFile1} />,
-                            <Step5 file={file2} setFile={setFile2} />,
-                            <Step6
-                                selectIndex={selectIndex3}
-                                setSelectIndex={setSelectIndex3}
-                                lastAction={() => {
-                                    openModal({
-                                        type: ModalType.Confirm,
-                                        text: "계약서가 등록되었습니다.",
-                                        onConfirm: () => {
-                                            history.go(-1);
-                                        },
-                                    });
-                                }}
-                            />,
-                        ]}
-                    />
+                    <NotValidUser setIsVaildUser={setIsVaildUser} backHandler={backHandler}/>
                 </InnerLayout>
+            ) : (
+                <>
+                    <InnerLayout>
+                        <Header
+                            title={"내 계약서 등록"}
+                            onBackClick={() =>
+                                backHandler({
+                                    backAction: () => {
+                                        openModal({
+                                            type: ModalType.Confirm,
+                                            params: {
+                                                title: "정말 나가시겠어요? :(",
+                                                content:
+                                                    "지금 나가면 계약 내용이 저장되지 않아요",
+                                                confirmText: "나가기",
+                                                cancelText: "이어 등록하기",
+                                                onConfirm: () => {
+                                                    history.go(-2);
+                                                },
+                                                onCancel: () => {
+                                                    closeModal();
+                                                },
+                                            },
+                                        });
+                                    },
+                                })
+                            }
+                        />
+                        <TabLayout
+                            tabList={[
+                                <Step1
+                                    selectIndex={selectIndex1}
+                                    setSelectIndex={setSelectIndex1}
+                                    onNext={() => {
+                                        if (selectIndex1 === 0) {
+                                            setIsVaildUser(false);
+                                        }
+                                    }}
+                                />,
+                                <Step2
+                                    selectIndex={selectIndex2}
+                                    setSelectIndex={setSelectIndex2}
+                                />,
+                                <Step3
+                                    deposit={deposit}
+                                    setDeposit={setDeposit}
+                                    monthPay={monthPay}
+                                    setMonthPay={setMonthPay}
+                                    termDate={termDate}
+                                    setTermDate={setTermDate}
+                                    name={name}
+                                    setName={setName}
+                                    socialNumber={socialNumber}
+                                    setSocialNumber={setSocialNumber}
+                                    allComplete={allComplete3}
+                                    setAllComplete={setAllComplete3}
+                                />,
+                                <Step4 file={file1} setFile={setFile1} />,
+                                <Step5 file={file2} setFile={setFile2} />,
+                                <Step6
+                                    selectIndex={selectIndex3}
+                                    setSelectIndex={setSelectIndex3}
+                                    lastAction={() => {
+                                        setLoading(true);
+                                    }}
+                                />,
+                            ]}
+                        />
+                    </InnerLayout>
+                </>
             )}
         </BasicLayout>
     );

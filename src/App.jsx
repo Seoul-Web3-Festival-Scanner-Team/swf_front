@@ -27,6 +27,7 @@ function App() {
                             path={ROUTES.transaction}
                             element={<TransactionPage />}
                         />
+                        <Route path="*" element={<div>404 Not Found</div>} />
                     </Routes>
                 </TabProvider>
             </RootUIProvider>

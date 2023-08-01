@@ -70,7 +70,7 @@ function ConfirmModal() {
                     <ElasticBlock h={12} />
                     <ElasticText
                         color={COLORS.black_op_1}
-                        size={20}
+                        size={16}
                         weight={500}>
                         {params?.content}
                     </ElasticText>

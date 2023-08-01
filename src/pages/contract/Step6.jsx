@@ -1,10 +1,7 @@
-import SimpleBtn from "components/global/btns/SimpleBtn";
 import AllFullColumn from "components/utils/AllFullColumn";
-import ElasticSizedBox from "components/utils/ElasticSizedBox";
 import { LayerAlign } from "components/utils/WidgetUtils";
 import { QuestionText, StepText } from "./ContractPage";
 import { useTabLayout } from "hooks/useTabLayout";
-import { useState } from "react";
 import ElasticBlock from "components/utils/ElasticBlock";
 import SquareBtn from "components/global/btns/SquareBtn";
 import Row from "components/utils/Row";
