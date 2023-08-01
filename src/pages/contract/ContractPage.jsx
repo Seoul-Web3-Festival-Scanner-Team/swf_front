@@ -2,7 +2,7 @@ import Header from "components/global/Header";
 import BasicLayout from "components/layouts/BasicLayout";
 import InnerLayout from "components/layouts/InnerLayout";
 import TabLayout from "components/layouts/TabLayout";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import Step1 from "./Step1";
 import styled from "@emotion/styled";
 import GlobalFont from "styles/global/globalFonts";
@@ -17,9 +17,10 @@ import { useModal } from "components/providers/ModalProvider";
 import { ModalType } from "components/providers/ModalProvider";
 import StoreLoading from "./StoreLoading";
 import { ToastType, useToast } from "components/providers/ToastProvider";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import NotValidUser from "./NotValidUser";
 import DummyResult from "./DummyResult";
+import ContractConnector from "networks/ContractConnector";
 
 export const StepText = styled.p`
     ${GlobalFont({
@@ -50,66 +51,60 @@ export const SubText = styled.p`
 `;
 
 function ContractPage() {
-    const { backHandler } = useTabLayout();
+    const { reload } = useLocation();
+    const { position, setPosition, backHandler } = useTabLayout();
     const { openModal, closeModal } = useModal();
     const { showToast } = useToast();
+    const address = localStorage.getItem("address");
+
     const history = window.history;
-    const location = window.location;
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [isVaildUser, setIsVaildUser] = useState(true); // [true: 유효한 유저, false: 유효하지 않은 유저
 
     // Step1
-    const [selectIndex1, setSelectIndex1] = useState(1);
+    const [selectIndex1, setSelectIndex1] = useState(-1);
 
     // Step2
-    const [selectIndex2, setSelectIndex2] = useState(0);
+    const [selectIndex2, setSelectIndex2] = useState(-1);
 
     // Step3
-    const [allComplete3, setAllComplete3] = useState(true);
+    const [allComplete3, setAllComplete3] = useState(false);
+    const [detailInfo, setDetailInfo] = useState("");
     const [deposit, setDeposit] = useState("");
     const [monthPay, setMonthPay] = useState("");
-    const [termStartDate, setTermStartDate] = useState((new Date()));
-    const [termEndDate, setTermEndDate] = useState((new Date()));
-    const [contractDate, setContractDate] = useState((new Date()));
+    const [termStartDate, setTermStartDate] = useState(new Date());
+    const [termEndDate, setTermEndDate] = useState(new Date());
+    const [contractDate, setContractDate] = useState(new Date());
     const [name, setName] = useState("");
     const [socialNumber, setSocialNumber] = useState("");
 
     // Step4
-    const [file1, setFile1] = useState(false);
+    const [file1, setFile1] = useState(true);
 
     // Step5
-    const [file2, setFile2] = useState(false);
+    const [file2, setFile2] = useState(true);
 
     // Step6
-    const [selectIndex3, setSelectIndex3] = useState(0);
+    const [selectIndex3, setSelectIndex3] = useState(-1);
 
-    // useEffect(() => {
-    //     window.onpopstate = function (e) {
-    //         history.pushState(null, null, location.href);
-    //         history.go(1);
-    //         backHandler({
-    //             backAction: () => {
-    //                 openModal({
-    //                     type: ModalType.Confirm,
-    //                     params: {
-    //                         title: "정말 나가시겠어요? :(",
-    //                         content: "지금 나가면 계약 내용이 저장되지 않아요",
-    //                         confirmText: "나가기",
-    //                         cancelText: "이어 등록하기",
-    //                         onConfirm: () => {
-    //                             closeModal();
-    //                             history.go(-2);
-    //                         },
-    //                         onCancel: () => {
-    //                             closeModal();
-    //                         },
-    //                     },
-    //                 });
-    //             },
-    //         });
-    //     };
-    // }, []);
+    useLayoutEffect(() => {
+        setDetailInfo("");
+        setPosition(0);
+        setSelectIndex1(-1);
+        setSelectIndex2(-1);
+        setAllComplete3(false);
+        setDeposit("");
+        setMonthPay("");
+        setTermStartDate(new Date());
+        setTermEndDate(new Date());
+        setContractDate(new Date());
+        setName("");
+        setSocialNumber("");
+        setFile1(true);
+        setFile2(true);
+        setSelectIndex3(-1);
+    }, [reload]);
 
     useEffect(() => {
         if (loading) {
@@ -121,10 +116,42 @@ function ContractPage() {
             });
 
             setTimeout(() => {
-                navigate("/search/map?status=new", {state: DummyResult});
+                // const convert = JSON.parse(localStorage.getItem("tempState"));
+                // navigate("/search/map", { state: convert });
+                history.back();
             }, 6000);
         }
     }, [loading]);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [position]);
+
+    useEffect(() => {
+        if (termStartDate > termEndDate) {
+            setTermEndDate(termStartDate);
+        }
+    }, [termStartDate]);
+
+    useEffect(() => {
+        if (termEndDate < termStartDate) {
+            setTermStartDate(termEndDate);
+        }
+    }, [termEndDate]);
+
+    useEffect(() => {
+        if (
+            detailInfo !== "" &&
+            deposit !== "" &&
+            termStartDate !== "" &&
+            termEndDate !== "" &&
+            contractDate !== "" &&
+            name !== "" &&
+            socialNumber !== ""
+        ) {
+            setAllComplete3(true);
+        }
+    }, [deposit, termStartDate, termEndDate, contractDate, name, socialNumber]);
 
     return (
         <BasicLayout>
@@ -134,7 +161,10 @@ function ContractPage() {
                 </InnerLayout>
             ) : !isVaildUser ? (
                 <InnerLayout>
-                    <NotValidUser setIsVaildUser={setIsVaildUser} backHandler={backHandler}/>
+                    <NotValidUser
+                        setIsVaildUser={setIsVaildUser}
+                        backHandler={backHandler}
+                    />
                 </InnerLayout>
             ) : (
                 <>
@@ -181,6 +211,8 @@ function ContractPage() {
                                     setSelectIndex={setSelectIndex2}
                                 />,
                                 <Step3
+                                    detailInfo={detailInfo}
+                                    setDetailInfo={setDetailInfo}
                                     deposit={deposit}
                                     setDeposit={setDeposit}
                                     monthPay={monthPay}
@@ -204,8 +236,18 @@ function ContractPage() {
                                 <Step6
                                     selectIndex={selectIndex3}
                                     setSelectIndex={setSelectIndex3}
-                                    lastAction={() => {
+                                    lastAction={async () => {
+                                        const connector =
+                                            new ContractConnector();
                                         setLoading(true);
+                                        await connector.addData({
+                                            address: address,
+                                            detail: detailInfo,
+                                            rentType: selectIndex2,
+                                            rentStart: termStartDate.getTime(),
+                                            rentEnd: termEndDate.getTime(),
+                                            contractDate: contractDate.getTime(),
+                                        });
                                     }}
                                 />,
                             ]}

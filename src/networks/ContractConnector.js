@@ -22,7 +22,7 @@ class ContractConnector {
                     contractDate: ethers.toNumber(data.contractDate),
                 });
             } catch (e) {
-                console.log(e);
+                // console.log(e);
                 break;
             }
         }
@@ -30,16 +30,40 @@ class ContractConnector {
         return result; // {detail, rentType, rentStart, rentEnd, contractDate}
     }
 
-    async addData(address, detail, rentType, rentStart, rentEnd, contractDate) {
+    async addData({
+        address,
+        detail,
+        rentType,
+        rentStart,
+        rentEnd,
+        contractDate,
+    }) {
         try {
-            const response = await axios.post("/contract", {
-                key: address,
-                detail: detail,
-                rentType: rentType,
-                rentStart: rentStart,
-                rentEnd: rentEnd,
-                contractDate: contractDate,
+            console.log("START");
+            console.log(address);
+            console.log(detail);
+            console.log(rentType);
+            console.log(rentStart);
+            console.log(rentEnd);
+            console.log(contractDate);
+            console.log(process.env.REACT_APP_BACK_URL);
+            const api = axios.create({
+                baseURL: `${process.env.REACT_APP_BACK_URL}`,
+                headers: {
+                    "Content-Type": "application/json",
+                },
             });
+            const response = await api.post(
+                "",
+                {
+                    key: address,
+                    detail: detail,
+                    rentType: rentType,
+                    rentStart: rentStart,
+                    rentEnd: rentEnd,
+                    contractDate: contractDate,
+                }
+            );
 
             console.log(response);
         } catch (e) {

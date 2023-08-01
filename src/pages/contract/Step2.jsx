@@ -7,9 +7,9 @@ import { useTabLayout } from "hooks/useTabLayout";
 import ElasticBlock from "components/utils/ElasticBlock";
 import SquareBtn from "components/global/btns/SquareBtn";
 import Row from "components/utils/Row";
-import {ReactComponent as MonthlyIcon} from "assets/icons/ic-monthly.svg";
-import {ReactComponent as MonthlyActiveIcon} from "assets/icons/ic-monthly-active.svg";
-import {ReactComponent as RentIcon} from "assets/icons/ic-rent.svg";
+import { ReactComponent as MonthlyIcon } from "assets/icons/ic-monthly.svg";
+import { ReactComponent as MonthlyActiveIcon } from "assets/icons/ic-monthly-active.svg";
+import { ReactComponent as RentIcon } from "assets/icons/ic-rent.svg";
 import RentActiveIcon from "assets/icons/ic-rent-active.png";
 
 function Step2({ selectIndex, setSelectIndex }) {
@@ -28,21 +28,34 @@ function Step2({ selectIndex, setSelectIndex }) {
             <ElasticBlock h={55} />
             <Row fullWidth={true}>
                 <SquareBtn
-                    icon={selectIndex === 0 ? <MonthlyActiveIcon/> : <MonthlyIcon/>}
-                    selected={selectIndex === 0}
-                    onClick={() => {
-                        setSelectIndex(0);
-                    }}>
-                    월세
-                </SquareBtn>
-                <ElasticBlock w={16} />
-                <SquareBtn
-                    icon={selectIndex === 1 ? <img src={RentActiveIcon}/> : <RentIcon/>}
+                    icon={
+                        selectIndex === 1 ? (
+                            <img src={RentActiveIcon} />
+                        ) : (
+                            <RentIcon />
+                        )
+                    }
                     selected={selectIndex === 1}
                     onClick={() => {
                         setSelectIndex(1);
                     }}>
                     전세
+                </SquareBtn>
+
+                <ElasticBlock w={16} />
+                <SquareBtn
+                    icon={
+                        selectIndex === 0 ? (
+                            <MonthlyActiveIcon />
+                        ) : (
+                            <MonthlyIcon />
+                        )
+                    }
+                    selected={selectIndex === 0}
+                    onClick={() => {
+                        setSelectIndex(0);
+                    }}>
+                    월세
                 </SquareBtn>
             </Row>
 

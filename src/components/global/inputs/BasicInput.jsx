@@ -35,11 +35,13 @@ function BasicInput({
     setValue,
     placeholder = "Basic Input",
     round = "50px",
+    maxLength,
     ...props
 }) {
     return (
         <Backboard round={round}>
             <Input
+                maxLength={maxLength}
                 value={value}
                 type={type}
                 onChange={(e) => setValue(e.target.value)}

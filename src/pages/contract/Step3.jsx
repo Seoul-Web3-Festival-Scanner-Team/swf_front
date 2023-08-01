@@ -10,6 +10,8 @@ import { ModalType, useModal } from "components/providers/ModalProvider";
 
 let dateStr = "";
 function Step3({
+    detailInfo,
+    setDetailInfo,
     deposit,
     setDeposit,
     monthPay,
@@ -25,11 +27,14 @@ function Step3({
     socialNumber,
     setSocialNumber,
     allComplete,
-    setAllComplete,
     selectIndex,
 }) {
     const { openModal } = useModal();
     const { position, maxPosition, forwardHandler } = useTabLayout();
+
+    const detailHandler = (value) => {
+        setDetailInfo(value);
+    }
 
     const depositHandler = (value) => {
         if (value.match(/^[0-9,]+$/)) {
@@ -100,6 +105,15 @@ function Step3({
             <QuestionText>계약의 상세 내역을 입력해주세요</QuestionText>
 
             <ElasticBlock h={59} />
+            <LabeledInput
+                value={detailInfo}
+                setValue={setDetailInfo}
+                title={"상세 주소"}
+                placeholder={"상세 주소"}
+                isImportant
+            />
+
+            <ElasticBlock h={28} />
             <LabeledInput
                 value={deposit}
                 setValue={depositHandler}
@@ -224,6 +238,7 @@ function Step3({
                 setValue={socialNumberHandler}
                 title={"임차인 주민번호 앞자리"}
                 placeholder={"000000"}
+                maxLength={6}
                 isImportant
             />
 

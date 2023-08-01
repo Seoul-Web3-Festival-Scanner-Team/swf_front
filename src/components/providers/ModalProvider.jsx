@@ -48,12 +48,14 @@ export function ModalProvider({ children }) {
         setTypeData(type);
         setParamsData(params);
         setModal(true);
+        document.body.style.overflow = "hidden";
     };
 
     const closeModal = () => {
         setModal(false);
         setTypeData(ModalType.Basic);
         setParamsData({});
+        document.body.style.overflow = "scroll";
     };
 
     return (
