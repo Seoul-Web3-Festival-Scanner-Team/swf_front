@@ -29,15 +29,15 @@ function Step2({ selectIndex, setSelectIndex }) {
             <Row fullWidth={true}>
                 <SquareBtn
                     icon={
-                        selectIndex === 1 ? (
+                        selectIndex === 0 ? (
                             <img src={RentActiveIcon} />
                         ) : (
                             <RentIcon />
                         )
                     }
-                    selected={selectIndex === 1}
+                    selected={selectIndex === 0}
                     onClick={() => {
-                        setSelectIndex(1);
+                        setSelectIndex(0);
                     }}>
                     전세
                 </SquareBtn>
@@ -45,15 +45,15 @@ function Step2({ selectIndex, setSelectIndex }) {
                 <ElasticBlock w={16} />
                 <SquareBtn
                     icon={
-                        selectIndex === 0 ? (
+                        selectIndex === 1 ? (
                             <MonthlyActiveIcon />
                         ) : (
                             <MonthlyIcon />
                         )
                     }
-                    selected={selectIndex === 0}
+                    selected={selectIndex === 1}
                     onClick={() => {
-                        setSelectIndex(0);
+                        setSelectIndex(1);
                     }}>
                     월세
                 </SquareBtn>
