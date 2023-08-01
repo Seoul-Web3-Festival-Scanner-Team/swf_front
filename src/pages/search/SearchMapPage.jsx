@@ -4,7 +4,7 @@ import BasicLayout from "components/layouts/BasicLayout";
 import InnerLayout from "components/layouts/InnerLayout";
 import { useEffect, useState } from "react";
 import { Map, MapMarker, MapTypeControl, ZoomControl } from "react-kakao-maps-sdk";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import {ReactComponent as PlusIcon} from "assets/icons/ic-plus.svg";
 
@@ -61,7 +61,7 @@ const ContractTitleText = styled.div`
   line-height: normal;
 `
 
-const ContractTitleButton = styled.div`
+const ContractTitleButton = styled.button`
   display: flex;
   padding: 8px 13px 8px 10px;
   justify-content: center;
@@ -69,6 +69,7 @@ const ContractTitleButton = styled.div`
   gap: 5px;
   border-radius: 10px;
   background: var(--blue-15, rgba(73, 142, 246, 0.15));
+  cursor: pointer;
 `
 
 const ContractTitleButtonText = styled.div`
@@ -130,6 +131,40 @@ const ContractContentsTextBedgeText = styled.div`
   line-height: normal;
 `
 
+const ContractContentsTextBedgeYellow = styled.div`
+  display: flex;
+  padding: 3px 7px;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 8px;
+  background: var(--yellow-25, rgba(255, 209, 92, 0.25));
+`
+const ContractContentsTextBedgeTextYellow = styled.div`
+  color: var(--orange-100, #FFA800);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+`
+
+const ContractContentsTextBedgeRed = styled.div`
+  display: flex;
+  padding: 3px 7px;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 8px;
+  background: rgba(255, 92, 112, 0.15);
+`
+const ContractContentsTextBedgeTextRed = styled.div`
+  color: #FF5C70;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+`
+
+
+
 const ContractContentsTextLowerBox = styled.div`
   color: var(--black-40, rgba(31, 49, 78, 0.40));
   font-family: Pretendard;
@@ -141,10 +176,11 @@ const ContractContentsTextLowerBox = styled.div`
 
 
 function SearchMapPage() {
-  const { state } = useLocation();
+  const { state, search } = useLocation();
   const { kakao } = window;
   const [center, setCenter] = useState({lat: 37.5049929789478, lng: 127.032959789566});
   const [result, setResult] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log(state)
@@ -181,25 +217,65 @@ function SearchMapPage() {
         <ContractBox>
           <ContractTitleBox>
             <ContractTitleText>계약 정보</ContractTitleText>
-            <ContractTitleButton>
+            <ContractTitleButton onClick={() => navigate('/contract')}>
               <PlusIcon style={{ width: "24px" }} />
               <ContractTitleButtonText>내 계약서 등록</ContractTitleButtonText>
             </ContractTitleButton>
           </ContractTitleBox>
           <ContractCotentsAllBox>
+            {search.split("=")[1] === "new" ?
             <ContractCotentsBox>
               <ContractContentsTextBox>
                 <ContractContentsTextUpperBox>
-                  <ContractContentsTextTitle>101동 101호</ContractContentsTextTitle>
+                  <ContractContentsTextTitle>B동 101호</ContractContentsTextTitle>
+                  <ContractContentsTextBedge>
+                    <ContractContentsTextBedgeText>전세</ContractContentsTextBedgeText>
+                  </ContractContentsTextBedge>
+                  <ContractContentsTextBedgeRed>
+                    <ContractContentsTextBedgeTextRed>New</ContractContentsTextBedgeTextRed>
+                  </ContractContentsTextBedgeRed>
+                </ContractContentsTextUpperBox>
+                <ContractContentsTextLowerBox>
+                  계약일자 : 23.07.31
+                </ContractContentsTextLowerBox>
+                <ContractContentsTextLowerBox>
+                  23.08.15 - 25.08.14
+                </ContractContentsTextLowerBox>
+              </ContractContentsTextBox>
+            </ContractCotentsBox>
+            : null}
+            <ContractCotentsBox>
+              <ContractContentsTextBox>
+                <ContractContentsTextUpperBox>
+                  <ContractContentsTextTitle>B동 101호</ContractContentsTextTitle>
                   <ContractContentsTextBedge>
                     <ContractContentsTextBedgeText>전세</ContractContentsTextBedgeText>
                   </ContractContentsTextBedge>
                 </ContractContentsTextUpperBox>
                 <ContractContentsTextLowerBox>
-                  00.00.00 - 00.00.00
+                  계약일자 : 21.07.20
+                </ContractContentsTextLowerBox>
+                <ContractContentsTextLowerBox>
+                  21.08.02 - 23.08.01
                 </ContractContentsTextLowerBox>
               </ContractContentsTextBox>
-            </ContractCotentsBox>           
+            </ContractCotentsBox>
+            <ContractCotentsBox>
+              <ContractContentsTextBox>
+                <ContractContentsTextUpperBox>
+                  <ContractContentsTextTitle>A동 101호</ContractContentsTextTitle>
+                  <ContractContentsTextBedgeYellow>
+                    <ContractContentsTextBedgeTextYellow>월세</ContractContentsTextBedgeTextYellow>
+                  </ContractContentsTextBedgeYellow>
+                </ContractContentsTextUpperBox>
+                <ContractContentsTextLowerBox>
+                  계약일자 : 22.07.01
+                </ContractContentsTextLowerBox>
+                <ContractContentsTextLowerBox>
+                  22.07.15 - 24.07.14
+                </ContractContentsTextLowerBox>
+              </ContractContentsTextBox>
+            </ContractCotentsBox>
           </ContractCotentsAllBox>
         </ContractBox>
       </InnerLayout>

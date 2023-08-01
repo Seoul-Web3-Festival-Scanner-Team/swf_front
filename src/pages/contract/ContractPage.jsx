@@ -19,6 +19,7 @@ import StoreLoading from "./StoreLoading";
 import { ToastType, useToast } from "components/providers/ToastProvider";
 import { useNavigate } from "react-router-dom";
 import NotValidUser from "./NotValidUser";
+import DummyResult from "./DummyResult";
 
 export const StepText = styled.p`
     ${GlobalFont({
@@ -117,7 +118,7 @@ function ContractPage() {
             });
 
             setTimeout(() => {
-                navigate("/search");
+                navigate("/search/map?status=new", {state: DummyResult});
             }, 6000);
         }
     }, [loading]);
