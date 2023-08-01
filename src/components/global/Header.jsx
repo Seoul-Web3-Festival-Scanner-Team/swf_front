@@ -23,6 +23,7 @@ export default Header;
 
 const Container = styled.div`
     position: fixed;
+    z-index: 999;
 
     display: flex;
     flex-direction: row;

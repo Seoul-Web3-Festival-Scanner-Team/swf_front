@@ -30,9 +30,6 @@ const Container = styled.div`
     animation: ${TopToBottomKf} 0.3s ease-in-out, ${FadeInKf} 0.3s ease-in-out;
 `;
 
-const Title = styled(ElasticText)``;
-const SubText = styled(ElasticText)``;
-
 function DatePickerModal() {
     const { closeModal, params } = useModal();
     const innerRef = useRef();
@@ -56,7 +53,7 @@ function DatePickerModal() {
     return (
         <ModalWrapper>
             <Container ref={innerRef}>
-                <TextDatePicker onChange={date => params?.onChange(date)}/>
+                <TextDatePicker date={params?.date} onChange={params?.onChange}/>
             </Container>
         </ModalWrapper>
     );

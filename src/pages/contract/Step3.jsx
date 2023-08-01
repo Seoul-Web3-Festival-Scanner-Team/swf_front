@@ -69,9 +69,13 @@ function Step3({
 
     const socialNumberHandler = (value) => {
         if (value.match(/^[0-9,]+$/)) {
-            if (value.length > 0) {
+            if (value.length >= 0) {
                 setSocialNumber(value);
             } else {
+                setSocialNumber("");
+            }
+        } else {
+            if (value.length < 1) {
                 setSocialNumber("");
             }
         }
@@ -125,13 +129,22 @@ function Step3({
                     openModal({
                         type: ModalType.Date,
                         params: {
+                            date: termStartDate,
                             onChange: (date) => {
                                 setTermStartDate(date);
                             },
                         },
                     });
                 }}
-                value={termStartDate}
+                value={`${termStartDate.getFullYear()}.${
+                    termStartDate.getMonth() + 1 < 10
+                        ? `0${termStartDate.getMonth() + 1}`
+                        : termStartDate.getMonth() + 1
+                }.${
+                    termStartDate.getDate() < 10
+                        ? `0${termStartDate.getDate()}`
+                        : termStartDate.getDate()
+                }`}
                 title={"계약 기간"}
                 subTitle={"(시작일)"}
                 placeholder={"00.00.00"}
@@ -145,13 +158,22 @@ function Step3({
                     openModal({
                         type: ModalType.Date,
                         params: {
+                            date: termEndDate,
                             onChange: (date) => {
-                                setTermStartDate(date);
+                                setTermEndDate(date);
                             },
                         },
                     });
                 }}
-                value={termEndDate}
+                value={`${termEndDate.getFullYear()}.${
+                    termEndDate.getMonth() + 1 < 10
+                        ? `0${termEndDate.getMonth() + 1}`
+                        : termEndDate.getMonth() + 1
+                }.${
+                    termEndDate.getDate() < 10
+                        ? `0${termEndDate.getDate()}`
+                        : termEndDate.getDate()
+                }`}
                 title={"계약 기간"}
                 subTitle={"(만료일)"}
                 placeholder={"00.00.00"}
@@ -165,13 +187,22 @@ function Step3({
                     openModal({
                         type: ModalType.Date,
                         params: {
+                            date: contractDate,
                             onChange: (date) => {
-                                setTermStartDate(date);
+                                setContractDate(date);
                             },
                         },
                     });
                 }}
-                value={contractDate}
+                value={`${contractDate.getFullYear()}.${
+                    contractDate.getMonth() + 1 < 10
+                        ? `0${contractDate.getMonth() + 1}`
+                        : contractDate.getMonth() + 1
+                }.${
+                    contractDate.getDate() < 10
+                        ? `0${contractDate.getDate()}`
+                        : contractDate.getDate()
+                }`}
                 title={"계약 일자"}
                 placeholder={"00.00.00"}
                 active={false}

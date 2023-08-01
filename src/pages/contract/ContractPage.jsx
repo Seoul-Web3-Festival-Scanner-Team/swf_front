@@ -69,9 +69,9 @@ function ContractPage() {
     const [allComplete3, setAllComplete3] = useState(true);
     const [deposit, setDeposit] = useState("");
     const [monthPay, setMonthPay] = useState("");
-    const [termStartDate, setTermStartDate] = useState("");
-    const [termEndDate, setTermEndDate] = useState("");
-    const [contractDate, setContractDate] = useState("");
+    const [termStartDate, setTermStartDate] = useState((new Date()));
+    const [termEndDate, setTermEndDate] = useState((new Date()));
+    const [contractDate, setContractDate] = useState((new Date()));
     const [name, setName] = useState("");
     const [socialNumber, setSocialNumber] = useState("");
 

@@ -249,8 +249,19 @@ class DatePicker extends React.Component {
 }
 
 class TextDatePicker extends React.Component {
+  // dateChanged = (date) => {
+  //   this.props.onChange(date);
+  // };
+
+  // state = { date: new Date() };
+  constructor(props) {
+    super(props);
+    this.state = { date: props.date };
+  }
+
   dateChanged = (newDate) => {
-    this.props.onChange({ date: newDate });
+    this.setState({ date: newDate });
+    this.props.onChange(newDate);
   };
 
   render() {
