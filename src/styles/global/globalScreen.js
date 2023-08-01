@@ -21,9 +21,9 @@ const SCREEN = (content) => css`
  */
 
 /**
- * @param {CssProperty} property - css 속성
+ * @param {CSSPropertyRule} property - css 속성
  * @param {number | string} px - 변환할 px 단위 (숫자 또는 css 값)
- * @returns {string} - vw 단위로 변환된 값
+ * @returns {SerializedStyles} - vw 단위로 변환된 값
  * @example
  * setVw("width", 360) // width: 100vw; width: 360px;
  * setVw("font-size", 18) // font-size: 5vw; font-size: 18px;

@@ -1,25 +1,24 @@
-function ElasticText(props) {
-  const { text, className, ...rest } = props;
-  const [textWidth, setTextWidth] = useState(0);
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+import { COLORS } from "styles/global/globalColors";
+import { setVw } from "styles/global/globalScreen";
 
-  const textRef = useRef(null);
-
-  useEffect(() => {
-    if (textRef.current) {
-      setTextWidth(textRef.current.clientWidth);
-    }
-  }, [textRef]);
-
-  return (
-    <div
-      className={className}
-      style={{ width: textWidth }}
-      ref={textRef}
-      {...rest}
-    >
-      {text}
-    </div>
-  );
+const Text = styled.p`
+    display: inline-block;
+    text-align: center;
+    ${({ color, size, weight, height }) => css`
+        color: ${color ? color : COLORS.black};
+        ${size ? setVw("font-size", size) : ""};
+        font-weight: ${weight ? weight : "normal"};
+        ${height ? setVw("line-height", height) : ""};
+    `}
+`;
+function ElasticText({ children, color, size, weight, height }) {
+    return (
+        <Text color={color} size={size} weight={weight} height={height}>
+            {children}
+        </Text>
+    );
 }
 
 export default ElasticText;

@@ -1,3 +1,4 @@
+import RootToast from "components/global/toasts/RootToast";
 import React, { createContext, useContext, useState } from "react";
 
 export const ToastType = {
@@ -16,10 +17,14 @@ export function ToastProvider({ children }) {
     const [typeData, setTypeData] = useState(ToastType.Basic);
     const [paramsData, setParamsData] = useState({});
 
-    const showToast = (type, params) => {
+    const showToast = ({ type, params }) => {
         setTypeData(type);
         setParamsData(params);
         setToast(true);
+        const timer = setTimeout(() => {
+            setToast(false);
+        }, 6000);
+        return () => clearTimeout(timer);
     };
 
     const closeToast = () => {
@@ -37,6 +42,7 @@ export function ToastProvider({ children }) {
                 typeData,
                 paramsData,
             }}>
+            <RootToast />
             {children}
         </ToastContext.Provider>
     );

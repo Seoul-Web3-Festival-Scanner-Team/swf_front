@@ -7,10 +7,10 @@ export function TabProvider({ children }) {
     const [maxPosition, setMaxPosition] = useState(0);
 
     const backHandler = ({ backAction }) => {
-        console.log("backHandler");
         if (position > 0) {
             setPosition(position - 1);
         } else {
+            console.log("backHandler");
             backAction();
         }
     };

@@ -32,7 +32,7 @@ const Container = styled.button`
     `}
 `;
 
-const BUTTON_MODE = {
+export const BUTTON_MODE = {
     OPACITY: "opacity",
     FILLED: "filled",
     DISABLED: "disabled",

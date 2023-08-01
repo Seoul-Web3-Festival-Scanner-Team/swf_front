@@ -14,6 +14,7 @@ export const COLORS = {
     gray_4: "#F6F7FC",
     gray_5: "#D5DBE5",
     simple_gray_op_1: "rgba(31, 49, 78, 0.20)",
+    simple_gray_op_5: "rgba(31, 49, 78, 0.60)",
     simple_gray_op_2: "rgba(213, 219, 229, 0.40)",
     simple_gray_op_3: "rgba(213, 219, 229, 0.10)",
     simple_gray_op_4: "rgba(213, 219, 229, 0.20)",

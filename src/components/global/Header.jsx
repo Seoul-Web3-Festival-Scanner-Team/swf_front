@@ -3,15 +3,14 @@ import { initVwViewport, setVw } from "styles/global/globalScreen";
 import { ReactComponent as Back } from "assets/icons/ic-left_arrow.svg";
 import Spacer from "components/utils/Spacer";
 import ElasticBlock from "components/utils/ElasticBlock";
+import Visibility from "components/utils/Visibility";
 
 function Header({ title, onBackClick }) {
     return (
         <>
             <Container>
                 <ElasticBlock w={20} />
-                <BackIcon
-                    onClick={onBackClick}
-                />
+                <BackIcon onClick={onBackClick} />
                 <Spacer />
                 <Title>{title}</Title>
             </Container>

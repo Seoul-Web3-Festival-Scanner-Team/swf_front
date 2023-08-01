@@ -8,6 +8,11 @@ import { FadeInKf, TopToBottomKf } from "utils/animations/BasicAnimations";
 import { setVw } from "styles/global/globalScreen";
 import GlobalFont from "styles/global/globalFonts";
 import { COLORS } from "styles/global/globalColors";
+import ElasticText from "components/utils/ElasticText";
+import ElasticBlock from "components/utils/ElasticBlock";
+import Row from "components/utils/Row";
+import ElasticSizedBox from "components/utils/ElasticSizedBox";
+import SimpleBtn, { BUTTON_MODE } from "components/global/btns/SimpleBtn";
 
 const Container = styled.div`
     display: flex;
@@ -46,11 +51,11 @@ function ConfirmModal() {
         };
 
         document.addEventListener("mousedown", handler);
-        // document.addEventListener('touchstart', handler); // 모바일 대응
+        document.addEventListener("touchstart", handler); // 모바일 대응
 
         return () => {
             document.removeEventListener("mousedown", handler);
-            // document.removeEventListener('touchstart', handler); // 모바일 대응
+            document.removeEventListener("touchstart", handler); // 모바일 대응
         };
     });
 
@@ -61,6 +66,32 @@ function ConfirmModal() {
                     main={LayerAlign.center}
                     cross={LayerAlign.center}>
                     <Title>{params?.title}</Title>
+
+                    <ElasticBlock h={12} />
+                    <ElasticText
+                        color={COLORS.black_op_1}
+                        size={20}
+                        weight={500}>
+                        {params?.content}
+                    </ElasticText>
+
+                    <ElasticBlock h={28} />
+                    <Row fullWidth={true}>
+                        <ElasticSizedBox w={136} h={48}>
+                            <SimpleBtn onClick={params?.onConfirm}>
+                                {params?.confirmText}
+                            </SimpleBtn>
+                        </ElasticSizedBox>
+
+                        <ElasticBlock w={16} />
+                        <ElasticSizedBox w={136} h={48}>
+                            <SimpleBtn
+                                onClick={params?.onCancel}
+                                mode={BUTTON_MODE.FILLED}>
+                                {params?.cancelText}
+                            </SimpleBtn>
+                        </ElasticSizedBox>
+                    </Row>
                 </AllFullColumn>
             </Container>
         </ModalWrapper>
