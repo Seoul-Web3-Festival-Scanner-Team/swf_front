@@ -29,7 +29,6 @@ const FileName = styled.span`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 90px;
 `;
 
 const InactiveCircleIcon = styled(InactiveCircle)`
@@ -46,7 +45,7 @@ const ActiveCircleIcon = styled(ActiveCircle)`
     transform: translate(-50%, -50%);
 `;
 
-function FileUploadInput({file, setFile}) {
+function FileUploadInput({file, setFile, back}) {
     const fileInputRef = useRef(null);
 
     const handleFileChange = (event) => {
@@ -60,7 +59,7 @@ function FileUploadInput({file, setFile}) {
     };
 
     return (
-        <UploadButton onClick={handleClick}>
+        <UploadButton style={{ backgroundImage: file ? `url(${back})`: null, backgroundSize: 'cover'}} onClick={handleClick}>
             <input
                 type="file"
                 ref={fileInputRef}
@@ -68,7 +67,7 @@ function FileUploadInput({file, setFile}) {
                 onChange={handleFileChange}
             />
             {file ? <InactiveCircleIcon /> : <ActiveCircleIcon />}
-            {file && <FileName>{file}</FileName>}
+            {/* {file && <FileName style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", height: "100%", fontSize: "24px"}}>{file}</FileName>} */}
         </UploadButton>
     );
 }

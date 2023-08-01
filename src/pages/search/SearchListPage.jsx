@@ -13,7 +13,8 @@ function SearchListPage(props) {
     geocoder.addressSearch(data.address, function(result, status) {
       if (status === kakao.maps.services.Status.OK) {
         console.log(result);
-        navigate('/search/map', {state: result});
+        // navigate('/search/map', {state: result});
+        navigate('/search/map?status=new', {state: result});
       } 
       else if (status === kakao.maps.services.Status.ZERO_RESULT) {
         alert('검색 결과 중 오류가 발생했습니다.');

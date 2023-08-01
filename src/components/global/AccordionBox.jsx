@@ -91,6 +91,10 @@ const BADGE_TYPE = {
         color: "#FFA800",
         backgroundColor: "rgba(255, 209, 92, 0.25)",
     },
+    red: {
+      color: "#ff5c70",
+      backgroundColor: "rgba(255, 92, 112, 0.15)",
+    }
 };
 
 function AccordionBox({
@@ -99,6 +103,7 @@ function AccordionBox({
     title,
     liveType = "전세",
     nowLiving = false,
+    isNew = false,
     termStartDate = "2021.01.01",
     termEndDate = "2021.01.01",
     contractDate = "2021.01.01",
@@ -162,6 +167,17 @@ function AccordionBox({
                         </>
                     )}
 
+                    {isNew && (
+                        <>
+                            <ElasticBlock w={5} />
+                            <Badge
+                                color={BADGE_TYPE.red.color}
+                                bgColor={BADGE_TYPE.red.backgroundColor}>
+                                New
+                            </Badge>
+                        </>
+                    )}
+
                     <Spacer />
                     <ArrowIcon ref={arrowRef} />
                 </Row>
@@ -189,10 +205,12 @@ function AccordionBox({
                         <ElasticBlock w={5} />
                         <SubText>{deposit}</SubText>
 
-                        <ElasticBlock w={5} />
+                        {type.color !== BADGE_TYPE.blue.color && (<>
+                          <ElasticBlock w={5} />
                         <SubTitle>월세</SubTitle>
                         <ElasticBlock w={5} />
                         <SubText>{monthPay}</SubText>
+                        </>)}
                     </Row>
                 </Contents>
             </ContentsWrapper>
