@@ -9,6 +9,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {ReactComponent as PlusIcon} from "assets/icons/ic-plus.svg";
 import { ToastType, useToast } from "components/providers/ToastProvider";
 import ContractConnector from "networks/ContractConnector";
+import { useModal } from "components/providers/ModalProvider";
 
 const MapTitleBox = styled.div`
 display: flex;
@@ -149,6 +150,22 @@ const ContractContentsTextBedgeTextYellow = styled.div`
   line-height: normal;
 `
 
+const ContractContentsTextBedgeGreen = styled.div`
+  display: flex;
+  padding: 3px 7px;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 8px;
+  background: rgba(61, 226, 147, 0.15);
+`
+const ContractContentsTextBedgeTextGreen = styled.div`
+  color: #06C168;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+`
+
 const ContractContentsTextBedgeRed = styled.div`
   display: flex;
   padding: 3px 7px;
@@ -165,8 +182,6 @@ const ContractContentsTextBedgeTextRed = styled.div`
   line-height: normal;
 `
 
-
-
 const ContractContentsTextLowerBox = styled.div`
   color: var(--black-40, rgba(31, 49, 78, 0.40));
   font-family: Pretendard;
@@ -180,6 +195,7 @@ const ContractContentsTextLowerBox = styled.div`
 function SearchMapPage() {
   const { state, search } = useLocation();
   const { showToast } = useToast();
+  const { openModal } = useModal();
   const { kakao } = window;
   const [center, setCenter] = useState({lat: 37.5049929789478, lng: 127.032959789566});
   const [result, setResult] = useState("");
@@ -194,6 +210,7 @@ function SearchMapPage() {
   useEffect(() => {
     getContractData();
     if (search.split("=")[1] === "new") {
+      openModal({params: {title: "경고!"}})
       showToast({
         type: ToastType.Basic,
         params: {
@@ -244,7 +261,7 @@ function SearchMapPage() {
             <ContractCotentsBox>
               <ContractContentsTextBox>
                 <ContractContentsTextUpperBox>
-                  <ContractContentsTextTitle>B동 101호</ContractContentsTextTitle>
+                  <ContractContentsTextTitle>101호</ContractContentsTextTitle>
                   <ContractContentsTextBedge>
                     <ContractContentsTextBedgeText>전세</ContractContentsTextBedgeText>
                   </ContractContentsTextBedge>
@@ -253,10 +270,10 @@ function SearchMapPage() {
                   </ContractContentsTextBedgeRed>
                 </ContractContentsTextUpperBox>
                 <ContractContentsTextLowerBox>
-                  계약일자 : 23.07.31
+                  계약 일자 23.07.31
                 </ContractContentsTextLowerBox>
                 <ContractContentsTextLowerBox>
-                  23.08.15 - 25.08.14
+                  계약 기간 23.08.15 - 25.08.14
                 </ContractContentsTextLowerBox>
               </ContractContentsTextBox>
             </ContractCotentsBox>
@@ -264,32 +281,35 @@ function SearchMapPage() {
             <ContractCotentsBox>
               <ContractContentsTextBox>
                 <ContractContentsTextUpperBox>
-                  <ContractContentsTextTitle>B동 101호</ContractContentsTextTitle>
+                  <ContractContentsTextTitle>101호</ContractContentsTextTitle>
                   <ContractContentsTextBedge>
                     <ContractContentsTextBedgeText>전세</ContractContentsTextBedgeText>
                   </ContractContentsTextBedge>
+                  <ContractContentsTextBedgeGreen>
+                    <ContractContentsTextBedgeTextGreen>거주 중</ContractContentsTextBedgeTextGreen>
+                  </ContractContentsTextBedgeGreen>
                 </ContractContentsTextUpperBox>
                 <ContractContentsTextLowerBox>
-                  계약일자 : 21.07.20
+                  계약 일자 21.07.20
                 </ContractContentsTextLowerBox>
                 <ContractContentsTextLowerBox>
-                  21.08.02 - 23.08.01
+                  계약 기간 21.08.02 - 23.08.01
                 </ContractContentsTextLowerBox>
               </ContractContentsTextBox>
             </ContractCotentsBox>
             <ContractCotentsBox>
               <ContractContentsTextBox>
                 <ContractContentsTextUpperBox>
-                  <ContractContentsTextTitle>A동 101호</ContractContentsTextTitle>
+                  <ContractContentsTextTitle>101호</ContractContentsTextTitle>
                   <ContractContentsTextBedgeYellow>
                     <ContractContentsTextBedgeTextYellow>월세</ContractContentsTextBedgeTextYellow>
                   </ContractContentsTextBedgeYellow>
                 </ContractContentsTextUpperBox>
                 <ContractContentsTextLowerBox>
-                  계약일자 : 22.07.01
+                  계약 일자 19.06.20
                 </ContractContentsTextLowerBox>
                 <ContractContentsTextLowerBox>
-                  22.07.15 - 24.07.14
+                  계약 기간 19.07.25 - 21.07.24
                 </ContractContentsTextLowerBox>
               </ContractContentsTextBox>
             </ContractCotentsBox>

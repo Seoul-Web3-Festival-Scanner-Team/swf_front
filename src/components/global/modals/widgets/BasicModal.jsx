@@ -19,7 +19,7 @@ const Container = styled.div`
     justify-content: center;
 
     ${setVw("width", 320)}
-    ${setVw("height", 206)}
+    ${setVw("height", 220)}
 
     background-color: #fff;
     border-radius: 10px;
@@ -55,14 +55,15 @@ function BasicModal() {
     return (
         <ModalWrapper>
             <Container ref={innerRef}>
+                {/* <div style={{ marginBottom: "12px", fontSize: "24px" }}>🚨</div> */}
                 <Title color={COLORS.black} size={20} weight={700}>
-                    {params.title}
+                    🚨 {params.title} 🚨
                 </Title>
 
-                <ElasticBlock h={12} />
-                <SubText color={COLORS.black_op_1} size={16} weight={500}>
-                    최근 7일 내에 계약이 있었던 매물이예요.<br/>
-                    이중 / 중복 계약은 아닌지 유의해주세요.
+                <ElasticBlock h={18} />
+                <SubText color={COLORS.black_op_1} size={16} weight={500} height={20}>
+                    최근 30일 이내에 계약이 체결된 집이예요.<br/>
+                    다중 계약이 의심되니 전세사기에 유의하세요.
                 </SubText>
 
                 <ElasticBlock h={28} />

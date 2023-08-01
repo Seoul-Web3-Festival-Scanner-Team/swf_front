@@ -10,7 +10,6 @@ import {ReactComponent as Landing1} from "assets/imgs/img-landing_1.svg";
 import {ReactComponent as Landing2} from "assets/imgs/img-landing_2.svg";
 import {ReactComponent as Landing3} from "assets/imgs/img-landing_3.svg";
 import BasicCarousel from "components/global/carousel/BasicCarousel";
-import { useModal } from "components/providers/ModalProvider";
 
 const ButtonWrapper = styled.div`
     position: fixed;
@@ -46,7 +45,6 @@ const CaroucelWrapper = styled.div`
 `;
 
 function MainPage() {
-    const { openModal } = useModal();
     return (
         <BasicLayout>
             <InnerLayout>
@@ -57,7 +55,6 @@ function MainPage() {
                     <ElasticSizedBox w={320} h={48}>
                         <SimpleBtn mode={BUTTON_MODE.FILLED} onClick={() => {
                             window.location.href = "/search";
-                            // openModal({params: {title: "잠시만요!"}});
                         }}>시작하기</SimpleBtn>
                     </ElasticSizedBox>
                 </ButtonWrapper>

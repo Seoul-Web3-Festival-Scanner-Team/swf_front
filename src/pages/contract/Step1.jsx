@@ -33,7 +33,7 @@ function Step1({ selectIndex, setSelectIndex, onNext = () => {} }) {
                     onClick={() => {
                         setSelectIndex(0);
                     }}>
-                    집주인이에요
+                    임대인
                 </SquareBtn>
                 <ElasticBlock w={16} />
                 <SquareBtn
@@ -42,7 +42,7 @@ function Step1({ selectIndex, setSelectIndex, onNext = () => {} }) {
                     onClick={() => {
                         setSelectIndex(1);
                     }}>
-                    세입자에요
+                    임차인
                 </SquareBtn>
             </Row>
 
