@@ -3,6 +3,8 @@ import RootUIProvider from "components/providers/RootUIProvider";
 import { TabProvider } from "hooks/useTabLayout";
 import ContractPage from "pages/contract/ContractPage";
 import MainPage from "pages/main/MainPage";
+import SearchListPage from "pages/search/SearchListPage";
+import SearchMapPage from "pages/search/SearchMapPage";
 import SearchPage from "pages/search/SearchPage";
 import TransactionPage from "pages/transaction/TransactionPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -19,6 +21,8 @@ function App() {
                     <Routes>
                         <Route path={ROUTES.main} element={<MainPage />} />
                         <Route path={ROUTES.search} element={<SearchPage />} />
+                        <Route path={`${ROUTES.search}/list`} element={<SearchListPage />} />
+                        <Route path={`${ROUTES.search}/map`} element={<SearchMapPage />} />
                         <Route
                             path={ROUTES.contract}
                             element={<ContractPage />}
