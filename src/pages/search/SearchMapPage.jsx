@@ -185,7 +185,7 @@ function SearchMapPage() {
                         </ContractTitleButton>
                     </ContractTitleBox>
                     <ContractCotentsAllBox>
-                        {contractDatas.map((data, index) => (
+                        {contractDatas.reverse().map((data, index) => (
                             <AccordionBox
                                 key={index}
                                 selected={selected === 0}
