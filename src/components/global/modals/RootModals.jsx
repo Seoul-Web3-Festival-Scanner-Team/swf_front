@@ -13,7 +13,7 @@ function RootModal() {
             return <BasicModal />;
         case ModalType.Confirm:
             return <ConfirmModal />;
-        case ModalType.DatePicker:
+        case ModalType.Date:
             return <DatePickerModal />;
         case ModalType.Loading:
             return null;

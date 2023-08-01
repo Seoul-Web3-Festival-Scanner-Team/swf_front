@@ -56,7 +56,7 @@ function DatePickerModal() {
     return (
         <ModalWrapper>
             <Container ref={innerRef}>
-                <TextDatePicker />
+                <TextDatePicker onChange={date => params?.onChange(date)}/>
             </Container>
         </ModalWrapper>
     );

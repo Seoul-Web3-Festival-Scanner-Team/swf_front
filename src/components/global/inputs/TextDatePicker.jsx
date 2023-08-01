@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import React from "react";
+import { COLORS } from "styles/global/globalColors";
 
 const MONTHS = [
   "1",
@@ -29,6 +30,8 @@ const DateText = styled.div`
 
 const DatePickerWrapper = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 50px 20px;
   margin: 30px 0;
   overflow: hidden;
@@ -39,8 +42,8 @@ const Wheel = styled.div`
   position: relative;
   height: 50px;
   margin: 0;
-  border-top: 1px solid #e0e0e0;
-  border-bottom: 1px solid #e0e0e0;
+  border-top: 2px solid ${COLORS.simple_blue_op};
+  border-bottom: 2px solid ${COLORS.simple_blue_op};
   border-radius: 0;
 
   &:before,
@@ -50,18 +53,18 @@ const Wheel = styled.div`
     left: 0;
     width: 80px;
     height: 50px;
-    background-color: white;
+    background-color: ${COLORS.white};
     opacity: 0.8;
     pointer-events: none;
     z-index: 1;
   }
 
   &:before {
-    top: -51px;
+    top: -52px;
   }
 
   &:after {
-    bottom: -51px;
+    bottom: -52px;
   }
 
   li {
@@ -71,23 +74,6 @@ const Wheel = styled.div`
     width: 80px;
     height: 50px;
     user-select: none;
-  }
-`;
-
-const ResetButton = styled.button`
-  width: 100px;
-  height: 30px;
-  border-radius: 15px;
-  border: none;
-  display: none;
-  outline: none;
-  color: white;
-  background-color: #2466fb;
-  box-shadow: 0 1px 10px -2px #2466fb;
-  font-weight: 300;
-
-  &:active {
-    transform: scale(0.95);
   }
 `;
 
@@ -158,7 +144,7 @@ class CustomWheel extends React.Component {
     let inlineStyle = {
       willChange: "transform",
       transition: `transform ${Math.abs(this.offset) / 100 + 0.1}s`,
-      transform: `translateY(${this.state.position}px)`,
+      transform: `translateY(${this.state.position - 2}px)`,
     };
 
     return (
@@ -237,48 +223,40 @@ class DatePicker extends React.Component {
     return (
       <DatePickerWrapper>
         <CustomWheel
-          type="day"
-          data={this.days}
-          selected={this.props.date.getDate()}
+          type="year"
+          data={this.years}
+          selected={this.props.date.getYear() + 1}
           onDateChange={this.dateChanged}
         />
+        년
         <CustomWheel
           type="month"
           data={this.months}
           selected={this.props.date.getMonth() + 1}
           onDateChange={this.dateChanged}
         />
+        월
         <CustomWheel
-          type="year"
-          data={this.years}
-          selected={this.props.date.getYear() + 1}
+          type="day"
+          data={this.days}
+          selected={this.props.date.getDate()}
           onDateChange={this.dateChanged}
         />
+        일
       </DatePickerWrapper>
     );
   }
 }
 
 class TextDatePicker extends React.Component {
-  state = { date: new Date() };
-
-  resetDate = () => {
-    this.setState({ date: new Date() });
-  };
-
   dateChanged = (newDate) => {
-    this.setState({ date: newDate });
+    this.props.onChange({ date: newDate });
   };
 
   render() {
     return (
       <Center>
-        <DateText>
-          {this.state.date.getDate()} {MONTHS[this.state.date.getMonth()]}{" "}
-          {this.state.date.getFullYear()}
-        </DateText>
         <DatePicker date={this.state.date} onDateChange={this.dateChanged} />
-        <ResetButton onClick={this.resetDate}>Reset Date</ResetButton>
       </Center>
     );
   }

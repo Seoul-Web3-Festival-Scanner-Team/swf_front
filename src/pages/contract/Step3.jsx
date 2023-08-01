@@ -14,8 +14,12 @@ function Step3({
     setDeposit,
     monthPay,
     setMonthPay,
-    termDate,
-    setTermDate,
+    termStartDate,
+    setTermStartDate,
+    termEndDate,
+    setTermEndDate,
+    contractDate,
+    setContractDate,
     name,
     setName,
     socialNumber,
@@ -119,11 +123,17 @@ function Step3({
             <LabeledInput
                 onClick={() => {
                     openModal({
-                        type: ModalType,
+                        type: ModalType.Date,
+                        params: {
+                            onChange: (date) => {
+                                setTermStartDate(date);
+                            },
+                        },
                     });
                 }}
+                value={termStartDate}
                 title={"계약 기간"}
-                subTitle={"(시작)"}
+                subTitle={"(시작일)"}
                 placeholder={"00.00.00"}
                 active={false}
                 isImportant
@@ -132,10 +142,37 @@ function Step3({
             <ElasticBlock h={28} />
             <LabeledInput
                 onClick={() => {
-                    openModal({});
+                    openModal({
+                        type: ModalType.Date,
+                        params: {
+                            onChange: (date) => {
+                                setTermStartDate(date);
+                            },
+                        },
+                    });
                 }}
+                value={termEndDate}
                 title={"계약 기간"}
-                subTitle={"(만료)"}
+                subTitle={"(만료일)"}
+                placeholder={"00.00.00"}
+                active={false}
+                isImportant
+            />
+
+            <ElasticBlock h={28} />
+            <LabeledInput
+                onClick={() => {
+                    openModal({
+                        type: ModalType.Date,
+                        params: {
+                            onChange: (date) => {
+                                setTermStartDate(date);
+                            },
+                        },
+                    });
+                }}
+                value={contractDate}
+                title={"계약 일자"}
                 placeholder={"00.00.00"}
                 active={false}
                 isImportant

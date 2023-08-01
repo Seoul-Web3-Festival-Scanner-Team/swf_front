@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { FadeInKf } from "utils/animations/BasicAnimations";
 
 const Container = styled.div`
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
 
