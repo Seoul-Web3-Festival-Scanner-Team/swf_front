@@ -70,6 +70,7 @@ function ContractPage() {
 
     // Step3
     const [allComplete3, setAllComplete3] = useState(false);
+    const [detailInfo, setDetailInfo] = useState("");
     const [deposit, setDeposit] = useState("");
     const [monthPay, setMonthPay] = useState("");
     const [termStartDate, setTermStartDate] = useState(new Date());
@@ -88,6 +89,7 @@ function ContractPage() {
     const [selectIndex3, setSelectIndex3] = useState(-1);
 
     useLayoutEffect(() => {
+        setDetailInfo("");
         setPosition(0);
         setSelectIndex1(-1);
         setSelectIndex2(-1);
@@ -139,6 +141,7 @@ function ContractPage() {
 
     useEffect(() => {
         if (
+            detailInfo !== "" &&
             deposit !== "" &&
             termStartDate !== "" &&
             termEndDate !== "" &&
@@ -208,6 +211,8 @@ function ContractPage() {
                                     setSelectIndex={setSelectIndex2}
                                 />,
                                 <Step3
+                                    detailInfo={detailInfo}
+                                    setDetailInfo={setDetailInfo}
                                     deposit={deposit}
                                     setDeposit={setDeposit}
                                     monthPay={monthPay}
@@ -237,7 +242,7 @@ function ContractPage() {
                                         setLoading(true);
                                         await connector.addData({
                                             address: address,
-                                            detail: "",
+                                            detail: detailInfo,
                                             rentType: selectIndex2,
                                             rentStart: termStartDate.getTime(),
                                             rentEnd: termEndDate.getTime(),
