@@ -248,6 +248,12 @@ function ContractPage() {
                                             rentEnd: termEndDate.getTime(),
                                             contractDate: contractDate.getTime(),
                                         });
+                                        showToast({
+                                            type: ToastType.Basic,
+                                            params: {
+                                                content: "내 계약이 등록되었어요 :)",
+                                            },
+                                        });
                                     }}
                                 />,
                             ]}
