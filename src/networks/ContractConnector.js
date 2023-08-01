@@ -1,3 +1,4 @@
+import axios from "axios";
 import ABI from "./abi";
 import { ethers } from "ethers";
 
@@ -29,7 +30,22 @@ class ContractConnector {
         return result; // {detail, rentType, rentStart, rentEnd, contractDate}
     }
 
-    async addData(address, rentType, rentStart, rentEnd, contractDate) {}
+    async addData(address, detail, rentType, rentStart, rentEnd, contractDate) {
+        try {
+            const response = await axios.post("/contract", {
+                key: address,
+                detail: detail,
+                rentType: rentType,
+                rentStart: rentStart,
+                rentEnd: rentEnd,
+                contractDate: contractDate,
+            });
+
+            console.log(response);
+        } catch (e) {
+            console.error(e);
+        }
+    }
 }
 
 export default ContractConnector;
