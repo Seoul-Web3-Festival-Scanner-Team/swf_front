@@ -240,7 +240,11 @@ function SearchMapPage() {
     return (
         <BasicLayout>
             <InnerLayout>
-                <Header />
+                <Header
+                    onBackClick={() => {
+                        navigate("/");
+                    }}
+                />
                 <Map
                     id="map"
                     center={center}
