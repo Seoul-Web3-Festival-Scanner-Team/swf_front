@@ -42,6 +42,13 @@ export const setVw = (property, px) =>
               ${`${property}: ${px}`};
           `;
 
+export const setVwMulti = (property, pxs) => css`
+    ${`${property}: ${pxs.map((px) => `${px}px`).join(" ")}`};
+    ${SCREEN(css`
+        ${property}: ${pxs.map((px) => getVw(px)).join(" ")};
+    `)};
+`;
+
 export const initVhViewport = 640;
 
 const getVh = (px) => `${(px / (initVhViewport * 0.01 * 1)) * 1}vh`;

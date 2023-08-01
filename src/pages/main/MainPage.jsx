@@ -10,6 +10,8 @@ import {ReactComponent as Landing1} from "assets/imgs/img-landing_1.svg";
 import {ReactComponent as Landing2} from "assets/imgs/img-landing_2.svg";
 import {ReactComponent as Landing3} from "assets/imgs/img-landing_3.svg";
 import BasicCarousel from "components/global/carousel/BasicCarousel";
+import AccordionList from "components/global/AccordionList";
+import AccordionBox from "components/global/AccordionBox";
 
 const ButtonWrapper = styled.div`
     position: fixed;
