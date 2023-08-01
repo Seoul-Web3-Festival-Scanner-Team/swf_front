@@ -190,7 +190,7 @@ function SearchMapPage() {
                                 key={index}
                                 selected={selected === 0}
                                 setSelected={setSelected}
-                                liveType={data.rentType === 1 ? "전세" : "월세"}
+                                liveType={data.rentType === 0 ? "전세" : "월세"}
                                 title={data.detail}
                                 termStartDate={convertUnixTimeToDateString(
                                     data.rentStart
