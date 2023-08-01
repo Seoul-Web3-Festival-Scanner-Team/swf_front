@@ -7,6 +7,7 @@ import { Map, MapMarker, MapTypeControl, ZoomControl } from "react-kakao-maps-sd
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import {ReactComponent as PlusIcon} from "assets/icons/ic-plus.svg";
+import { ToastType, useToast } from "components/providers/ToastProvider";
 
 const MapTitleBox = styled.div`
 display: flex;
@@ -177,13 +178,21 @@ const ContractContentsTextLowerBox = styled.div`
 
 function SearchMapPage() {
   const { state, search } = useLocation();
+  const { showToast } = useToast();
   const { kakao } = window;
   const [center, setCenter] = useState({lat: 37.5049929789478, lng: 127.032959789566});
   const [result, setResult] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(state)
+    if (search.split("=")[1] === "new") {
+      showToast({
+        type: ToastType.Basic,
+        params: {
+          content: "내 계약이 등록되었어요 :)",
+        },
+      });
+    }
     setResult({
       title: !!state[0]["road_address"]["building_name"] ? state[0]["road_address"]["building_name"] : state[0]["address_name"],
       address: state[0]["address_name"],
