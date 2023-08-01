@@ -56,8 +56,8 @@ function MainPage() {
                 <ButtonWrapper>
                     <ElasticSizedBox w={320} h={48}>
                         <SimpleBtn mode={BUTTON_MODE.FILLED} onClick={() => {
-                            // window.location.href = "/search";
-                            openModal({params: {title: "잠시만요!"}});
+                            window.location.href = "/search";
+                            // openModal({params: {title: "잠시만요!"}});
                         }}>시작하기</SimpleBtn>
                     </ElasticSizedBox>
                 </ButtonWrapper>

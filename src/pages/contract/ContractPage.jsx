@@ -191,6 +191,7 @@ function ContractPage() {
                                     setSocialNumber={setSocialNumber}
                                     allComplete={allComplete3}
                                     setAllComplete={setAllComplete3}
+                                    selectIndex={selectIndex2}
                                 />,
                                 <Step4 file={file1} setFile={setFile1} />,
                                 <Step5 file={file2} setFile={setFile2} />,

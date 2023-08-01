@@ -35,6 +35,7 @@ function BasicInput({
     setValue,
     placeholder = "Basic Input",
     round = "50px",
+    ...props
 }) {
     return (
         <Backboard round={round}>
@@ -43,6 +44,7 @@ function BasicInput({
                 type={type}
                 onChange={(e) => setValue(e.target.value)}
                 placeholder={placeholder}
+                {...props}
             />
         </Backboard>
     );

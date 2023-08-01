@@ -34,9 +34,9 @@ export const setVw = (property, px) =>
     typeof px == "number"
         ? css`
               ${`${property}: ${px}px`};
-              /* ${SCREEN(css`
+              ${SCREEN(css`
                   ${property}: ${getVw(px)};
-              `)}; */
+              `)};
           `
         : css`
               ${`${property}: ${px}`};

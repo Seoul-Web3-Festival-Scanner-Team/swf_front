@@ -21,6 +21,7 @@ function Step3({
     setSocialNumber,
     allComplete,
     setAllComplete,
+    selectIndex,
 }) {
     const { position, maxPosition, forwardHandler } = useTabLayout();
 
@@ -52,115 +53,6 @@ function Step3({
         } else {
             if (value.length < 1) {
                 setMonthPay("");
-            }
-        }
-    };
-
-    const termDateHandler = (value) => {
-        console.log(value.length);
-        if (value.length == 1) {
-            dateStr = value;
-            setTermDate(`${value}0.00.00 - 00.00.00`);
-            return;
-        }
-        if (value.length < 19) {
-            console.log("delete");
-            // delete
-            if (dateStr.length > 0) {
-                dateStr = dateStr.slice(0, -1);
-                setTermDate(
-                    `
-                    ${
-                        dateStr.slice(0, 2).length == 0
-                            ? "00"
-                            : dateStr.slice(0, 2).length == 1
-                            ? dateStr.slice(0, 2) + "0"
-                            : dateStr.slice(0, 2)
-                    }.${
-                        dateStr.slice(2, 4).length == 0
-                            ? "00"
-                            : dateStr.slice(2, 4).length == 1
-                            ? dateStr.slice(2, 4) + "0"
-                            : dateStr.slice(2, 4)
-                    }.${
-                        dateStr.slice(4, 6).length == 0
-                            ? "00"
-                            : dateStr.slice(4, 6).length == 1
-                            ? dateStr.slice(4, 6) + "0"
-                            : dateStr.slice(4, 6)
-                    } - ${
-                        dateStr.slice(6, 8).length == 0
-                            ? "00"
-                            : dateStr.slice(6, 8).length == 1
-                            ? dateStr.slice(6, 8) + "0"
-                            : dateStr.slice(6, 8)
-                    }.${
-                        dateStr.slice(8, 10).length == 0
-                            ? "00"
-                            : dateStr.slice(8, 10).length == 1
-                            ? dateStr.slice(8, 10) + "0"
-                            : dateStr.slice(8, 10)
-                    }.${
-                        dateStr.slice(10, 12).length == 0
-                            ? "00"
-                            : dateStr.slice(10, 12).length == 1
-                            ? dateStr.slice(10, 12) + "0"
-                            : dateStr.slice(10, 12)
-                    }
-                `.trim()
-                );
-            } else {
-                setTermDate("");
-            }
-        } else {
-            console.log("add");
-            // add
-            const lastNumberString = value.slice(-1);
-            if (lastNumberString.match(/^[0-9,]+$/)) {
-                if (dateStr.length > -1 && dateStr.length < 12) {
-                    dateStr = dateStr + lastNumberString;
-                    setTermDate(
-                        `
-                    ${
-                        dateStr.slice(0, 2).length == 0
-                            ? "00"
-                            : dateStr.slice(0, 2).length == 1
-                            ? dateStr.slice(0, 2) + "0"
-                            : dateStr.slice(0, 2)
-                    }.${
-                            dateStr.slice(2, 4).length == 0
-                                ? "00"
-                                : dateStr.slice(2, 4).length == 1
-                                ? dateStr.slice(2, 4) + "0"
-                                : dateStr.slice(2, 4)
-                        }.${
-                            dateStr.slice(4, 6).length == 0
-                                ? "00"
-                                : dateStr.slice(4, 6).length == 1
-                                ? dateStr.slice(4, 6) + "0"
-                                : dateStr.slice(4, 6)
-                        } - ${
-                            dateStr.slice(6, 8).length == 0
-                                ? "00"
-                                : dateStr.slice(6, 8).length == 1
-                                ? dateStr.slice(6, 8) + "0"
-                                : dateStr.slice(6, 8)
-                        }.${
-                            dateStr.slice(8, 10).length == 0
-                                ? "00"
-                                : dateStr.slice(8, 10).length == 1
-                                ? dateStr.slice(8, 10) + "0"
-                                : dateStr.slice(8, 10)
-                        }.${
-                            dateStr.slice(10, 12).length == 0
-                                ? "00"
-                                : dateStr.slice(10, 12).length == 1
-                                ? dateStr.slice(10, 12) + "0"
-                                : dateStr.slice(10, 12)
-                        }
-                `.trim()
-                    );
-                }
             }
         }
     };
@@ -202,25 +94,47 @@ function Step3({
                 value={deposit}
                 setValue={depositHandler}
                 title={"보증금"}
+                unit={"만원"}
                 placeholder={"3,000 만원"}
+                isImportant
+            />
+
+            {selectIndex === 0 && (
+                <>
+                    <ElasticBlock h={28} />
+                    <LabeledInput
+                        value={monthPay}
+                        setValue={monthPayHandler}
+                        title={"월세"}
+                        unit={"만원"}
+                        subTitle={"(전세인 경우 미기입)"}
+                        placeholder={"50 만원"}
+                    />
+                </>
+            )}
+
+            <ElasticBlock h={28} />
+            <LabeledInput
+                onClick={() => {
+                    console.log("hi");
+                }}
+                title={"계약 기간"}
+                subTitle={"(시작)"}
+                placeholder={"00.00.00"}
+                active={false}
                 isImportant
             />
 
             <ElasticBlock h={28} />
             <LabeledInput
-                value={monthPay}
-                setValue={monthPayHandler}
-                title={"월세"}
-                subTitle={"(전세인 경우 미기입)"}
-                placeholder={"50 만원"}
-            />
-
-            <ElasticBlock h={28} />
-            <LabeledInput
-                value={termDate}
-                setValue={termDateHandler}
+                onClick={() => {
+                    console.log("hi");
+                }}
                 title={"계약 기간"}
-                placeholder={"00.00.00 - 00.00.00"}
+                subTitle={"(만료)"}
+                placeholder={"00.00.00"}
+                active={false}
+                isImportant
             />
 
             <ElasticBlock h={28} />
