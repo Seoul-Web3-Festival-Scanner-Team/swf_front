@@ -82,31 +82,32 @@ function ContractPage() {
     // Step6
     const [selectIndex3, setSelectIndex3] = useState(0);
 
-    useEffect(() => {
-        window.onpopstate = function (e) {
-            history.pushState(null, null, location.href);
-            history.go(1);
-            backHandler({
-                backAction: () => {
-                    openModal({
-                        type: ModalType.Confirm,
-                        params: {
-                            title: "정말 나가시겠어요? :(",
-                            content: "지금 나가면 계약 내용이 저장되지 않아요",
-                            confirmText: "나가기",
-                            cancelText: "이어 등록하기",
-                            onConfirm: () => {
-                                history.go(-2);
-                            },
-                            onCancel: () => {
-                                closeModal();
-                            },
-                        },
-                    });
-                },
-            });
-        };
-    }, []);
+    // useEffect(() => {
+    //     window.onpopstate = function (e) {
+    //         history.pushState(null, null, location.href);
+    //         history.go(1);
+    //         backHandler({
+    //             backAction: () => {
+    //                 openModal({
+    //                     type: ModalType.Confirm,
+    //                     params: {
+    //                         title: "정말 나가시겠어요? :(",
+    //                         content: "지금 나가면 계약 내용이 저장되지 않아요",
+    //                         confirmText: "나가기",
+    //                         cancelText: "이어 등록하기",
+    //                         onConfirm: () => {
+    //                             closeModal();
+    //                             history.go(-2);
+    //                         },
+    //                         onCancel: () => {
+    //                             closeModal();
+    //                         },
+    //                     },
+    //                 });
+    //             },
+    //         });
+    //     };
+    // }, []);
 
     useEffect(() => {
         if (loading) {
@@ -150,7 +151,8 @@ function ContractPage() {
                                                 confirmText: "나가기",
                                                 cancelText: "이어 등록하기",
                                                 onConfirm: () => {
-                                                    history.go(-2);
+                                                    closeModal();
+                                                    history.go(-1);
                                                 },
                                                 onCancel: () => {
                                                     closeModal();
